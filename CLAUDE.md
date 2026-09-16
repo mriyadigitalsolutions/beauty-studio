@@ -8,7 +8,17 @@
 
 | Команда | Что делает |
 |---------|------------|
-| — | Заполняется, когда стек поднят |
+| `npm install` | Установить зависимости |
+| `npm run dev` | Запустить локально |
+| `npm run build` | Статический экспорт в `out/` |
+| `npm test` | Прогнать тесты (один файл — `npm test -- <path>`) |
+| `npm run test:e2e` | Playwright |
+| `npm run lint` | Линт |
+| `npm run check:config` | Показать, что ещё не вписано в конфиг студии |
+
+Факты студии — только `config/studio.config.ts`, видимыми заглушками.
+`@playwright/test` закреплён на 1.56.0 под chromium в `/opt/pw-browsers`;
+`playwright install` в этом окружении запрещён.
 
 ## Как здесь работает Autopilot
 

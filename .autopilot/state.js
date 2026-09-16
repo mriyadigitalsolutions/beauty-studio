@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T16:13:43+00:00",
+  "updatedAt": "2026-09-16T16:20:59+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -19,12 +19,12 @@ window.STATE =
     { "id": "briefing",  "status": "done", "finishedAt": "2026-09-16T15:38:31+00:00", "startedAt": "2026-09-16T13:12:19+00:00" },
     { "id": "spec",      "status": "done", "finishedAt": "2026-09-16T15:46:45+00:00", "startedAt": "2026-09-16T15:38:31+00:00" },
     { "id": "plan",      "status": "done", "note": "7 тасков, ярус T2, 5 волн", "finishedAt": "2026-09-16T15:50:37+00:00", "startedAt": "2026-09-16T15:46:45+00:00" },
-    { "id": "build",     "status": "active", "startedAt": "2026-09-16T15:50:37+00:00" },
-    { "id": "review",    "status": "pending" },
+    { "id": "build",     "status": "active", "note": "1 из 7 тасков готов", "startedAt": "2026-09-16T15:50:37+00:00" },
+    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверен 1 из 7" },
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 59, "done": 0, "inTicket": 58, "inSpec": 0,
+    "total": 59, "done": 16, "inTicket": 42, "inSpec": 0,
     "placeholder": 0, "deferred": 1, "dropped": 0
   },
   "tickets": [
@@ -59,7 +59,7 @@ window.STATE =
         "components/ui/",
         "components/layout/"
       ],
-      "status": "repair",
+      "status": "done", "finishedAt": "2026-09-16T16:20:59+00:00", "commit": "c95826d", "tests": { "passed": 52, "failed": 0 },
       "retries": 0,
       "repairs": 1, "repairFindings": ["выдуманные факты о студии в словарях (аппарат, протокол, длительность, число сеансов) — R06", "currency EUR готовым значением вместо заглушки — R06", "нет папки styles/ из структуры брифа — R38"],
       "handoffs": 0
@@ -236,8 +236,8 @@ window.STATE =
     }
   ],
   "singlePass": null,
-  "tests": null,
-  "debt": { "placeholders": [], "assumptions": [], "emptyEnv": [] },
+  "tests": { "passed": 52, "failed": 0 },
+  "debt": { "placeholders": ["R06 — название, телефон, адрес, соцсети, цены, валюта, цифры счётчиков, реквизиты Impressum: 21 поле в config/studio.config.ts", "G01 — юридический текст Impressum и Datenschutz"], "assumptions": ["Didot заменён на Bodoni Moda — веб-лицензии на Didot нет", "Гротеск Inter добавлен для мелкого текста — на референсе подзаголовок гротеском, а три серифа на подписях нечитаемы", "Статический экспорт вместо сервера — лендинг кладётся на любой хостинг", "Шапка sticky над карточками, а не внутри карточки hero — чтобы переживать pin сцен"], "emptyEnv": [] },
   "additions": [],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
