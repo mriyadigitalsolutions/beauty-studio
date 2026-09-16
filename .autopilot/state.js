@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T18:04:27+00:00",
+  "updatedAt": "2026-09-16T19:24:47+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -19,12 +19,12 @@ window.STATE =
     { "id": "briefing",  "status": "done", "finishedAt": "2026-09-16T15:38:31+00:00", "startedAt": "2026-09-16T13:12:19+00:00" },
     { "id": "spec",      "status": "done", "finishedAt": "2026-09-16T15:46:45+00:00", "startedAt": "2026-09-16T15:38:31+00:00" },
     { "id": "plan",      "status": "done", "note": "7 тасков, ярус T2, 5 волн", "finishedAt": "2026-09-16T15:50:37+00:00", "startedAt": "2026-09-16T15:46:45+00:00" },
-    { "id": "build",     "status": "active", "note": "5 из 7 тасков готовы", "startedAt": "2026-09-16T15:50:37+00:00" },
-    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверено 5 из 7" },
+    { "id": "build",     "status": "active", "note": "6 из 7 тасков готовы", "startedAt": "2026-09-16T15:50:37+00:00" },
+    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверено 6 из 7" },
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 59, "done": 52, "inTicket": 6, "inSpec": 0,
+    "total": 59, "done": 58, "inTicket": 0, "inSpec": 0,
     "placeholder": 0, "deferred": 1, "dropped": 0
   },
   "tickets": [
@@ -204,13 +204,14 @@ window.STATE =
         "components/SceneProgress/",
         "lib/motion/timeline.ts"
       ],
-      "status": "in-progress",
+      "status": "done", "finishedAt": "2026-09-16T19:24:47+00:00", "commit": "7011ea7", "tests": { "passed": 110, "failed": 0 },
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1, "repairFindings": ["на мобильном финальный экран записи приезжает пустым — недоделан пункт §10 «короткие появления по входу» — R50i", "scenarioLengthVh тихо игнорирует переданную длину сцены", "SceneProgress читает семь getBoundingClientRect на каждом кадре скраба", "выбор пункта меню с клавиатуры роняет фокус в body", "мобильный тест не проверяет затемнение, которое обещает именем", "ожидание в timeline.test записано той же константой, что и код"],
       "handoffs": 0
     },
     {
       "id": "07",
+      "startedAt": "2026-09-16T19:24:47+00:00",
       "title": "Доступность, скорость, SEO и юридические страницы",
       "requirements": [
         "R42",
@@ -233,19 +234,28 @@ window.STATE =
         "public/icons/",
         "tests/e2e/"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
     }
   ],
   "singlePass": null,
-  "tests": { "passed": 103, "failed": 0 },
+  "tests": { "passed": 110, "failed": 0 },
   "debt": { "placeholders": ["R06 — название, телефон, адрес, соцсети, цены, валюта, цифры счётчиков, реквизиты Impressum: 21 поле в config/studio.config.ts", "G01 — юридический текст Impressum и Datenschutz"], "assumptions": ["Didot заменён на Bodoni Moda — веб-лицензии на Didot нет", "Гротеск Inter добавлен для мелкого текста — на референсе подзаголовок гротеском, а три серифа на подписях нечитаемы", "Статический экспорт вместо сервера — лендинг кладётся на любой хостинг", "Шапка sticky над карточками, а не внутри карточки hero — чтобы переживать pin сцен"], "emptyEnv": [] },
   "additions": ["A01 — индикатор прогресса сцен сбоку (таск 06)", "A02 — таблица цен по зонам (таск 05)"],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
   "concerns": [
+  "SiteHeader — мёртвые экспорты NAV_SECTIONS/SECTION_ANCHORS: JSX ходит в FILM_STOPS напрямую",
+  "GlowCursor — своя таблица «что считается интерактивным», пятая версия этого знания",
+  "NavMenu — ловушка фокуса написана руками, querySelectorAll на каждый Tab без учёта inert/disabled",
+  "e2e/interface.spec.ts — ripple проверяется по счётчику, который компонент инкрементирует сам, а не по числу волн в DOM",
+  "HeroSection.module.css — комментарий обещает, что расхождение с шапкой роняет e2e, хотя сеть терпит сдвиг до 2*--page-inset; --header-bar применён к шапке как min-height, а hero вычитает его как точную высоту",
+  "SceneProgress.module.css — брейкпоинт §10 выписан литералом третий раз в CSS",
+  "SkinLayers — лепесток ложится на строку описания слоя и слегка её глушит (следствие правила §14, не дефект сборки)",
+  "Laser Reveal — в этой одной секции лепестки под стеклом, а не поверх всего: размен ради чистой фотографии, задокументирован",
+  "СКВОЗНОЕ: тесты, сверяющие таблицу с самой собой — по одному-два в тасках 03, 04, 05, 06",
   "СКВОЗНОЕ: палитра существует в репозитории четырьмя копиями (styles/tokens.css, tests/palette.test.ts, tests/flash.test.ts, tests/hero.test.ts), WCAG-математика — тремя. Единственная находка, повторившаяся в каждом ревью",
   "LaserReveal — тест hair.at сверяется с формулой, которой сам и создан",
   "scene-assets.ts — сгенерированные hex невидимы для сторожа палитры только из-за расширения .ts",

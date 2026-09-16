@@ -264,3 +264,26 @@ How It Works (0), Benefits (1) и `<Prices>` внутри Benefits (2, `pin: fal
 - `ctaAction` читает `hasValue(studio.bookingUrl)` напрямую из конфига, хотя
   правильный дом для этой проверки — `hasBookingService()` в `lib/contact`
   рядом с `bookingHref()`. Правда о `bookingUrl` разошлась на два места.
+
+### Из таска 06 — курсор, меню, сборка плёнки
+
+- `lib/motion/timeline.ts`: `DESKTOP_SCENARIO`, `FILM_STOPS: readonly FilmStop[]`
+  (`{id: SceneId; anchor: string; key: FilmStopKey}`), `stopAnchors()`,
+  `MOBILE_SCENE_SCALE = 0.5`, `scenarioLengthVh(id, lengthVh, desktop)`.
+  **Сценарий живёт здесь одним экземпляром** — `MotionProvider` берёт длины
+  отсюда, шапка выводит из `FILM_STOPS` свои пункты.
+- `<GlowCursor/>`, `<NavMenu items openLabel closeLabel/>` (`NavMenuItem {href,label}`),
+  `<SceneProgress dictionary/>` — смонтированы в `app/[locale]/layout.tsx`.
+- Крючки e2e: `[data-glow-cursor][data-cursor-over="idle|interactive"]`,
+  `[data-cursor-ripple][data-ripple-seq]`, `[data-nav-menu]`, `[data-nav-toggle]`,
+  `[data-scene-progress] [data-stop][data-current]`, `[data-scene][data-scene-length]`
+- **`--header-bar` в `styles/tokens.css`** — высота панели шапки, одно число.
+  Повторённого `3.875rem` в hero больше нет.
+- **Лепесток на фото решён слоями:** акт Laser Reveal встаёт поверх слоя декора
+  (`z-index 4`), потому что поднять лепесток нельзя — корень сцены и стеклянная
+  карточка каждый открывают свой стекинг-контекст. Над остальными секциями
+  лепестки по-прежнему сверху.
+- Рельс индикатора `aria-hidden`, метки вне таб-порядка: те же адреса есть
+  в меню с клавиатурным контрактом, дубль ломал бы «порядок табов = визуальный».
+- Ripple — один элемент, перезапускаемый на каждый клик: стопка волн невозможна
+  by construction.
