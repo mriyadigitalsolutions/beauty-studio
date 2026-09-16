@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T17:20:26+00:00",
+  "updatedAt": "2026-09-16T17:25:05+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -119,7 +119,7 @@ window.STATE =
       ],
       "status": "review",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1, "repairFindings": ["will-change висел в CSS постоянно на трёх узлах hero — R40", "тест порядка исчезновения был тавтологичным и не мог покраснеть", "мёртвые ключи sections.hero.eyebrow/lead жили в словарях и требовали перевода"],
       "handoffs": 0
     },
     {
@@ -142,7 +142,7 @@ window.STATE =
         "public/scenes/",
         "components/LaserReveal/"
       ],
-      "status": "in-progress",
+      "status": "review",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -241,7 +241,7 @@ window.STATE =
   "singlePass": null,
   "tests": { "passed": 55, "failed": 0 },
   "debt": { "placeholders": ["R06 — название, телефон, адрес, соцсети, цены, валюта, цифры счётчиков, реквизиты Impressum: 21 поле в config/studio.config.ts", "G01 — юридический текст Impressum и Datenschutz"], "assumptions": ["Didot заменён на Bodoni Moda — веб-лицензии на Didot нет", "Гротеск Inter добавлен для мелкого текста — на референсе подзаголовок гротеском, а три серифа на подписях нечитаемы", "Статический экспорт вместо сервера — лендинг кладётся на любой хостинг", "Шапка sticky над карточками, а не внутри карточки hero — чтобы переживать pin сцен"], "emptyEnv": [] },
-  "additions": [],
+  "additions": ["A01 — индикатор прогресса сцен сбоку (таск 06)", "A02 — таблица цен по зонам (таск 05)"],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
   "concerns": [

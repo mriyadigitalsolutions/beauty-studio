@@ -217,3 +217,32 @@ How It Works (0), Benefits (1) и `<Prices>` внутри Benefits (2, `pin: fal
   меняется и это**; расхождение ловит e2e «card fills the first screen».
 - `sections.hero.eyebrow` и `sections.hero.lead` больше не рендерятся: на референсе
   над заголовком и под подзаголовком ничего нет. Ключи в словарях остались.
+
+### Из таска 04 — Laser Reveal
+
+- `scripts/prepare-assets.mjs` — **запускается руками** (`node scripts/prepare-assets.mjs`),
+  детерминирован, из `npm run build` не вызывается. Результат в `public/scenes/` закоммичен.
+- `components/LaserReveal/scene-assets.ts` (**генерируется скриптом, руками не править**):
+  `SceneImage {id,width,height,placeholder,blurDataUri,sources[],src}`, `LEG_BEFORE`,
+  `LEG_AFTER`, `SCENE_WIDTHS = [250,374,498]`, `SCENE_ASPECT_RATIO`
+- `components/LaserReveal/laser-geometry.ts`: `STAGE {width:498,height:720}`, `REVEAL_END`,
+  `shinEdgeX(y)`, `maskEdgeY(p)`, `progressAtY(y)`, `shinPointAt(p) => {x,y,angle}`,
+  `createHairStrokes(count?, seed?)`
+- Крючки для e2e: `[data-scene="hand-reveal"][data-laser-progress]`,
+  `[data-laser-photo="idle|loading|ready|failed"]`, `[data-laser-layer]`,
+  `[data-laser-hairs]`, `[data-laser-applicator]`, `[data-laser-unavailable]`
+- Словарь: `sections.laserReveal` + `photoAlt`, `beforeLabel`, `afterLabel`, `photoUnavailable`
+
+**Решения, которые надо знать**
+- **Ладонь — фолбэк из спецификации**: нарисованный SVG-аппликатор, а не вырез из фото.
+  Кисть на снимке лежит на коже того же тона без контраста по границе, запястье уходит
+  за край кадра — любой clip-path тащит по голени висящий обрубок. Фотографическая
+  ладонь осталась в финальном кадре `leg-after`.
+- Две половины исходника не сведены: нога справа стоит на ~250 px левее и под другим
+  углом. Скрипт измеряет силуэт в обеих половинах, сдвигает «после» на 249 px и режет
+  общее окно 498×720.
+- Секция держит **два** шага §4: `hand-reveal` (весь показ, 140vh) и `hair-dissolve`
+  (осевший кадр, 80vh) — второй нужен, чтобы у вспышки `flash-laser-to-skin` был владелец.
+
+**Для таска 06:** лепестки декора дрейфуют поверх фотокарточки и ложатся на снимок
+крупным светлым пятном. Это видно только на собранной странице — посмотреть на интеграции.
