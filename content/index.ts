@@ -16,4 +16,16 @@ export function getDictionary(locale: Locale): Dictionary {
 
 export { defaultLocale, isLocale, locales };
 export type { Dictionary, Locale };
-export type { HeroText, SectionText } from './dictionary';
+export type {
+  HeroText,
+  SectionText,
+  StepText,
+  SkinLayerName,
+  SkinLayersText,
+  HowItWorksText,
+  BenefitText,
+  BenefitsText,
+  PricesText,
+  StatsText,
+  CtaText,
+} from './dictionary';

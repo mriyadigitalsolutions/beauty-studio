@@ -81,7 +81,7 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
 
         <div className={styles.actions}>
           <span className={styles.callAction}>
-            <PillButton variant="ghost" size="sm" href={call ?? undefined} disabled={!call}>
+            <PillButton variant="solid" size="sm" href={call ?? undefined} disabled={!call}>
               {nav.call}
             </PillButton>
           </span>

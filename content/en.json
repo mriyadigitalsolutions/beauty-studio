@@ -25,47 +25,120 @@
   },
   "sections": {
     "hero": {
-      "eyebrow": "Laser hair removal",
       "titleLine1": "Smooth skin,",
       "titleLine2": "kept smooth",
       "subtitle": "Gentle laser hair removal, matched to your skin",
-      "lead": "No wax, no ingrown hairs, no constant re-shaving. Just skin that feels like nothing at all.",
       "scrollCta": "See how it works"
     },
     "laserReveal": {
       "eyebrow": "The moment",
       "title": "Hair by hair, visibly less",
-      "lead": "The pulse of light finds the pigment inside the hair, heats it in milliseconds and releases the root. The skin around it stays cool — and the leg stays smooth."
+      "lead": "The pulse of light finds the pigment inside the hair, heats it in milliseconds and releases the root. The skin around it stays cool — and the leg stays smooth.",
+      "photoAlt": "A shin before the treatment and the same shin after: hair on the left, smooth skin on the right",
+      "beforeLabel": "Before",
+      "afterLabel": "After",
+      "photoUnavailable": "The photograph cannot be shown right now — the story goes on."
     },
     "skinLayers": {
       "eyebrow": "Below the surface",
       "title": "Where the beam actually goes",
-      "lead": "Through the epidermis and dermis down to the follicle: only there is there enough pigment for the energy to land. Everything above it is left alone."
+      "lead": "Through the epidermis and dermis down to the follicle: only there is there enough pigment for the energy to land. Everything above it is left alone.",
+      "layers": {
+        "epidermis": "Epidermis",
+        "dermis": "Dermis",
+        "subcutis": "Subcutaneous layer",
+        "follicle": "Follicle"
+      },
+      "layerNotes": {
+        "epidermis": "The top layer. It holds little pigment, so the light passes through it.",
+        "dermis": "Vessels and nerve endings run here — the heat barely touches them.",
+        "subcutis": "Below the root. The energy of the pulse no longer reaches this far.",
+        "follicle": "The root of the hair: most of the pigment is here, and this is where the pulse stops."
+      },
+      "beam": "Laser beam",
+      "caption": "A schematic drawing: the layers are out of scale so that you can see where the light lands."
     },
     "howItWorks": {
       "eyebrow": "How it works",
       "title": "What happens in the treatment room",
-      "lead": "We walk you through every step beforehand: what we do, what you will feel while we do it, and what to look after afterwards. Nothing happens unannounced."
+      "lead": "We walk you through every step beforehand: what we do, what you will feel while we do it, and what to look after afterwards. Nothing happens unannounced.",
+      "stepLabel": "Step",
+      "steps": [
+        {
+          "title": "A conversation",
+          "text": "We look at your skin and at how the hair grows, and ask about your health and what you used before."
+        },
+        {
+          "title": "Getting ready",
+          "text": "The area is cleaned and protective glasses go on — yours and the specialist’s."
+        },
+        {
+          "title": "Pulse after pulse",
+          "text": "The applicator moves across the area patch by patch. Every pulse feels like a short warm flash."
+        },
+        {
+          "title": "Afterwards",
+          "text": "The skin is calmed down, and you hear how to treat it over the next few days."
+        }
+      ]
     },
     "benefits": {
       "eyebrow": "Why laser",
       "title": "Laser instead of wax",
-      "lead": "Light works at the root, wax only on the surface. Precise instead of rough, predictable instead of random — and without the in-between phase of waiting to grow back."
+      "lead": "Light works at the root, wax only on the surface. Precise instead of rough, predictable instead of random — and without the in-between phase of waiting to grow back.",
+      "laserLabel": "Laser",
+      "waxLabel": "Wax",
+      "items": [
+        {
+          "title": "It works at the root",
+          "text": "The light is absorbed by the pigment inside the hair and quiets the growth zone.",
+          "wax": "Wax pulls the hair out and leaves the root where it was."
+        },
+        {
+          "title": "Fewer ingrown hairs",
+          "text": "The hair does not break off under the skin: there is nothing left to grow crooked.",
+          "wax": "A torn hair often curls back under the skin."
+        },
+        {
+          "title": "No growing it out",
+          "text": "Between appointments the skin stays smooth — shaving is fine.",
+          "wax": "Wax needs length, and you have to wait for it."
+        },
+        {
+          "title": "The result adds up",
+          "text": "Hair grows in cycles, and every appointment takes the hairs that are active right now.",
+          "wax": "With wax everything starts over each time."
+        }
+      ]
     },
     "prices": {
       "eyebrow": "Prices",
       "title": "Zones and prices",
-      "lead": "Every zone on its own, several zones as a package. You know what a session costs before it starts."
+      "lead": "Every zone on its own, several zones as a package. You know what a session costs before it starts.",
+      "zoneColumn": "Area",
+      "priceColumn": "Price",
+      "perSession": "The price is for a single appointment."
     },
     "stats": {
       "eyebrow": "Numbers",
       "title": "What can be counted",
-      "lead": "Years, sessions, faces. Numbers never tell you everything about a treatment — but they do tell you how often we have done it."
+      "lead": "Years, sessions, faces. Numbers never tell you everything about a treatment — but they do tell you how often we have done it.",
+      "pending": "Not filled in yet",
+      "pendingNote": "The numbers appear here once the owner of the studio fills them in."
     },
     "cta": {
       "eyebrow": "Appointment",
       "title": "Let us talk about your skin",
-      "lead": "We look at your skin and hair growth, answer your questions and say plainly what makes sense. Then you decide, without being rushed."
+      "lead": "We look at your skin and hair growth, answer your questions and say plainly what makes sense. Then you decide, without being rushed.",
+      "book": "Book an appointment",
+      "call": "Call us",
+      "unavailable": "Booking unavailable",
+      "unavailableNote": "Neither a booking link nor a phone number has been filled in yet, so the button has nowhere to lead.",
+      "contactLabel": "Or write to us",
+      "messengers": {
+        "whatsapp": "WhatsApp",
+        "telegram": "Telegram"
+      }
     }
   },
   "footer": {

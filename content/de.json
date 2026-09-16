@@ -25,47 +25,120 @@
   },
   "sections": {
     "hero": {
-      "eyebrow": "Laser-Haarentfernung",
       "titleLine1": "Glatte Haut,",
       "titleLine2": "die bleibt",
       "subtitle": "Sanfte Laser-Haarentfernung, abgestimmt auf Ihre Haut",
-      "lead": "Kein Wachs, keine eingewachsenen Haare, kein ständiges Nachrasieren. Nur Haut, die sich nach nichts anfühlt.",
       "scrollCta": "So läuft es ab"
     },
     "laserReveal": {
       "eyebrow": "Der Moment",
       "title": "Haar für Haar, sichtbar weniger",
-      "lead": "Der Lichtimpuls findet das Pigment im Haar, erhitzt es in Millisekunden und löst die Wurzel. Die Haut daneben bleibt kühl — und das Bein bleibt glatt."
+      "lead": "Der Lichtimpuls findet das Pigment im Haar, erhitzt es in Millisekunden und löst die Wurzel. Die Haut daneben bleibt kühl — und das Bein bleibt glatt.",
+      "photoAlt": "Ein Schienbein vor der Behandlung und dasselbe danach: links mit Haaren, rechts glatt",
+      "beforeLabel": "Vorher",
+      "afterLabel": "Nachher",
+      "photoUnavailable": "Das Foto lässt sich gerade nicht zeigen — die Geschichte geht weiter."
     },
     "skinLayers": {
       "eyebrow": "Unter der Oberfläche",
       "title": "Wohin der Strahl wirklich geht",
-      "lead": "Durch Epidermis und Dermis bis zum Follikel: erst dort liegt genug Pigment, damit die Energie ankommt. Alles darüber bleibt unberührt."
+      "lead": "Durch Epidermis und Dermis bis zum Follikel: erst dort liegt genug Pigment, damit die Energie ankommt. Alles darüber bleibt unberührt.",
+      "layers": {
+        "epidermis": "Epidermis",
+        "dermis": "Dermis",
+        "subcutis": "Unterhaut",
+        "follicle": "Follikel"
+      },
+      "layerNotes": {
+        "epidermis": "Die oberste Schicht. Sie enthält wenig Pigment, das Licht geht hindurch.",
+        "dermis": "Hier verlaufen Gefäße und Nervenenden — die Wärme berührt sie kaum.",
+        "subcutis": "Unterhalb der Wurzel. So tief reicht die Energie des Impulses nicht mehr.",
+        "follicle": "Die Haarwurzel: hier sitzt das meiste Pigment, und hier endet der Impuls."
+      },
+      "beam": "Laserstrahl",
+      "caption": "Eine schematische Zeichnung: die Schichten sind nicht maßstabsgetreu, damit sichtbar wird, wohin das Licht reicht."
     },
     "howItWorks": {
       "eyebrow": "Ablauf",
       "title": "Was im Behandlungsraum passiert",
-      "lead": "Wir gehen jeden Schritt vorher mit Ihnen durch: was wir tun, was Sie dabei spüren und worauf Sie danach achten. Nichts passiert unangekündigt."
+      "lead": "Wir gehen jeden Schritt vorher mit Ihnen durch: was wir tun, was Sie dabei spüren und worauf Sie danach achten. Nichts passiert unangekündigt.",
+      "stepLabel": "Schritt",
+      "steps": [
+        {
+          "title": "Das Gespräch",
+          "text": "Wir sehen uns die Haut und den Haarwuchs an und fragen nach Gesundheit und bisheriger Pflege."
+        },
+        {
+          "title": "Vorbereitung",
+          "text": "Die Zone wird gereinigt, Schutzbrillen kommen auf — Ihre und die der Fachkraft."
+        },
+        {
+          "title": "Impuls für Impuls",
+          "text": "Der Applikator wandert Stück für Stück über die Zone. Jeder Impuls fühlt sich wie ein kurzer warmer Blitz an."
+        },
+        {
+          "title": "Danach",
+          "text": "Die Haut wird beruhigt, und Sie erfahren, wie Sie sie in den nächsten Tagen behandeln."
+        }
+      ]
     },
     "benefits": {
       "eyebrow": "Warum Laser",
       "title": "Laser statt Wachs",
-      "lead": "Licht arbeitet an der Wurzel, Wachs nur an der Oberfläche. Präzise statt grob, planbar statt zufällig — und ohne die Zwischenzeit, in der man wieder wartet."
+      "lead": "Licht arbeitet an der Wurzel, Wachs nur an der Oberfläche. Präzise statt grob, planbar statt zufällig — und ohne die Zwischenzeit, in der man wieder wartet.",
+      "laserLabel": "Laser",
+      "waxLabel": "Wachs",
+      "items": [
+        {
+          "title": "Wirkt an der Wurzel",
+          "text": "Das Licht wird vom Pigment im Haar aufgenommen und beruhigt die Wachstumszone.",
+          "wax": "Wachs reißt das Haar heraus und lässt die Wurzel zurück."
+        },
+        {
+          "title": "Weniger eingewachsene Haare",
+          "text": "Das Haar bricht nicht unter der Haut ab: es wächst nichts mehr schief nach.",
+          "wax": "Ein abgerissenes Haar rollt sich oft unter die Haut zurück."
+        },
+        {
+          "title": "Kein Nachwachsenlassen",
+          "text": "Zwischen den Terminen bleibt die Haut glatt — rasieren ist erlaubt.",
+          "wax": "Wachs braucht Länge, und darauf muss man warten."
+        },
+        {
+          "title": "Das Ergebnis summiert sich",
+          "text": "Haare wachsen in Zyklen, und jeder Termin nimmt die gerade aktiven mit.",
+          "wax": "Mit Wachs fängt alles jedes Mal von vorn an."
+        }
+      ]
     },
     "prices": {
       "eyebrow": "Preise",
       "title": "Zonen und Preise",
-      "lead": "Jede Zone einzeln, mehrere Zonen als Paket. Was eine Sitzung kostet, wissen Sie, bevor sie beginnt."
+      "lead": "Jede Zone einzeln, mehrere Zonen als Paket. Was eine Sitzung kostet, wissen Sie, bevor sie beginnt.",
+      "zoneColumn": "Zone",
+      "priceColumn": "Preis",
+      "perSession": "Der Preis gilt für einen Termin."
     },
     "stats": {
       "eyebrow": "Zahlen",
       "title": "Was sich zählen lässt",
-      "lead": "Jahre, Sitzungen, Gesichter. Zahlen erzählen nicht alles über eine Behandlung — aber sie sagen, wie oft wir sie schon gemacht haben."
+      "lead": "Jahre, Sitzungen, Gesichter. Zahlen erzählen nicht alles über eine Behandlung — aber sie sagen, wie oft wir sie schon gemacht haben.",
+      "pending": "Noch nicht eingetragen",
+      "pendingNote": "Die Zahlen erscheinen hier, sobald die Inhaberin der Studios sie einträgt."
     },
     "cta": {
       "eyebrow": "Termin",
       "title": "Sprechen wir über Ihre Haut",
-      "lead": "Wir sehen uns Haut und Haarwuchs an, beantworten Ihre Fragen und sagen offen, was sinnvoll ist. Danach entscheiden Sie in Ruhe."
+      "lead": "Wir sehen uns Haut und Haarwuchs an, beantworten Ihre Fragen und sagen offen, was sinnvoll ist. Danach entscheiden Sie in Ruhe.",
+      "book": "Termin buchen",
+      "call": "Anrufen",
+      "unavailable": "Buchung nicht verfügbar",
+      "unavailableNote": "Weder ein Buchungslink noch eine Telefonnummer sind eingetragen — die Schaltfläche hätte kein Ziel.",
+      "contactLabel": "Oder schreiben Sie uns",
+      "messengers": {
+        "whatsapp": "WhatsApp",
+        "telegram": "Telegram"
+      }
     }
   },
   "footer": {

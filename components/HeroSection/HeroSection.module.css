@@ -1,27 +1,75 @@
+/*
+ * The first screen of the reference (§14): the peach page field shows only as
+ * a thin margin, the glass card takes the rest, and inside it the copy sits in
+ * the middle with one white pill below. Shape, palette and type all come from
+ * the tokens — there is no colour literal in this file.
+ */
+
 .section {
+  /*
+   * §14 shows the header inside the first card — monogram, burger and the two
+   * pills sitting on the gradient. Ticket 01 keeps the header sticky above the
+   * cards so it survives every pin, so the hero reaches up under it instead of
+   * asking it to move. The offset is built from the header's own tokens
+   * (its `--page-inset` padding plus the height of its pill bar); if the two
+   * ever drift apart, `e2e/hero.spec.ts` fails on the card no longer filling
+   * the first screen.
+   */
+  --hero-header: calc(2 * var(--page-inset) + 3.875rem);
+  margin-top: calc(-1 * var(--hero-header));
   padding: var(--page-inset);
-  scroll-margin-top: 0;
 }
 
 .card {
-  position: relative;
-  min-height: min(100svh, 56rem);
   display: grid;
-  grid-template-rows: 1fr auto 1fr;
-  justify-items: center;
-  text-align: center;
-  padding: clamp(3rem, 10vh, 7rem) var(--gutter);
+  /* A floor, never a ceiling: enlarged browser text grows the card downwards
+     instead of spilling out of it (story 46, R45.1). */
+  min-height: calc(100svh - 2 * var(--page-inset));
 }
 
-.center {
+/*
+ * Safari without `backdrop-filter` keeps a dense pastel card rather than a
+ * transparent one — the degradation of story 48, not a breakage. The mesh
+ * layer under the copy is opaque on its own, so legibility never depended on
+ * the blur in the first place.
+ */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .section .card {
+    background-color: var(--peach);
+  }
+}
+
+.inner {
+  display: grid;
+  /* Copy on the optical centre, pill in the lower third — the reference. */
+  grid-template-rows: 1fr auto 1fr;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--hero-header) + clamp(1rem, 4vh, 3rem)) var(--gutter)
+    clamp(2rem, 6vh, 4rem);
+}
+
+.copy {
   grid-row: 2;
   display: grid;
-  gap: clamp(1rem, 3vh, 2rem);
   justify-items: center;
+  gap: clamp(1rem, 2.4vh, 2rem);
 }
 
 .title {
+  /* The display face of §9 carrying both lines of the reference headline. */
+  font-size: var(--step-h1);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
   max-width: 18ch;
+  text-wrap: balance;
+  /* Start state of the melt lives here, not in JS, so nothing flashes before
+     GSAP wakes up (story 33, R09.1). The layer promotion does not: the scene
+     runtime raises `will-change` while the scene is on screen and drops it
+     again on the way out (R40). */
+  opacity: 1;
+  filter: blur(0);
 }
 
 .title span {
@@ -31,16 +79,24 @@
 .subtitle {
   font-family: var(--font-sans);
   font-size: var(--step-body);
-  color: rgb(var(--ink-rgb) / 0.75);
-  max-width: 44ch;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(var(--ink-rgb) / 0.78);
+  max-width: 42ch;
+  opacity: 1;
+  filter: blur(0);
 }
 
-.lead {
-  max-width: 40ch;
-  text-align: center;
-}
-
-.bottom {
+.cta {
   grid-row: 3;
-  align-self: end;
+  align-self: center;
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Short and wide viewports: the pill would otherwise crowd the headline. */
+@media (max-height: 40rem) {
+  .inner {
+    padding-block: clamp(3rem, 10vh, 5rem) clamp(1.25rem, 4vh, 2.5rem);
+  }
 }
