@@ -119,3 +119,58 @@
   правится только `components/layout/SiteHeader/SiteHeader.module.css`.
 - Компонента цен нет: в §4 её нет среди семи секций. Секция словаря
   `sections.prices` заведена, блок цен ставит **таск 05**.
+
+### Из таска 02 — мотор анимации
+
+**Сцены**
+- `lib/motion`: `SCENE_IDS` — 13 ключей сценария §4: `heroFade, pinHero,
+  flashHeroToLaser, handReveal, hairDissolve, flashLaserToSkin, skinLayers,
+  flashSkinToCards, cards, flashCardsToCounter, counter, flashCounterToCta, cta`;
+  плюс `SCENE_SEQUENCE`, `FLASH_SCENE_IDS`, типы `SceneId`, `FlashSceneId`
+- `isSceneId(v)`, `isFlashScene(id)`, `nextSceneId(id)`, `flashAfter(id)`
+- **`useScene<T>(id, build, options?) => RefObject<T|null>`** — единственный способ
+  завести прокруточную анимацию. Свой `useEffect` с GSAP или ScrollTrigger писать нельзя.
+  - `build = ({ root, timeline, reducedMotion, pinned }) => void`
+  - `options = { pin?: boolean /* по умолчанию true */, lengthVh?: number /* 100 */,
+    start?: string /* 'top top' */, scrub?: number|boolean /* true */ }`
+  - **pin включён по умолчанию** — секции, которой закрепление не нужно,
+    надо явно передать `{ pin: false }`
+  - **Один `SceneId` может регистрировать несколько секций** — именно так задуман
+    шаг 9 `cards` (How It Works + Benefits). Каждая регистрация независима: свой
+    ScrollTrigger, свой таймлайн, свой pin, своя уборка. Порядок в сценарии задаёт
+    **вёрстка**, а не порядок регистрации. Части различаются в DOM как
+    `data-scene="cards"` + `data-scene-part="0|1"` (индекс проставляет провайдер).
+    Вспышку шва запрашивает каждая часть, лимитер 600 мс схлопывает дубль.
+- `useScrollProgress(cb)` — единственный способ для дрейфа вне таймлайна сцены
+- `useReducedMotionSafe(): boolean`, `useMotionRuntime(): MotionRuntime|null`
+
+**Вспышка и декор — уже смонтированы, второй раз не ставь**
+- `<MotionProvider>` смонтирован в `app/[locale]/layout.tsx` и сам рендерит
+  `<Arcs/>`, `<Petals/>` и все пять `<FlashTransition/>`
+- `<FlashTransition id={SceneId} />`, `flashDuration = 160`,
+  `FLASH_MIN_GAP_MS = 600`, `DIM_DURATION_MS = 180`, `createFlashLimiter(minGapMs?)`
+- `components/FlashTransition/flash-phases.ts` — `FLASH_PHASES`: вспышка 0–160 мс
+  (пик 56 мс), **bloom стартует на 160 мс**, строго после спада вспышки, живёт до
+  560 мс. Пики: flash 0.26, bloom 0.22, dim 0.05 — подобраны так, чтобы перепад
+  яркости композита над каждым фоном палитры был < 0.1. **Менять их нельзя
+  на глаз**: `tests/flash.test.ts` сэмплирует таймлайн по 1 мс и считает WCAG-яркость
+  композиции всех активных слоёв.
+- `relativeLuminance(hex)`, `composite(under, over, alpha)`,
+  `luminanceDelta(backdrop, layer, alpha)`, `FLASH_PEAK_OPACITY = 0.26`, `DIM_PEAK_OPACITY = 0.05`
+- `<Petals count? />` (9 по умолчанию, 3 глубины, часть за краем), `<Arcs />` (5 дуг, 1 px),
+  `petalSprite(depth)`
+
+**Крючки для e2e:** `html[data-motion="full"|"reduced"]`, `section[data-scene]`,
+`[data-scene-pinned]`, `[data-flash]`, `[data-decor]`.
+
+**Решения, которые надо знать**
+- Lenis подключён к тикеру GSAP — **один rAF на весь сайт**. Своего `requestAnimationFrame`
+  цикла не заводи.
+- CSS для Lenis отдан через React 19 `<style precedence>` внутри провайдера,
+  чтобы не трогать `app/globals.css`.
+- В этом Playwright `test.use({ reducedMotion: 'reduce' })` до браузера не доезжает —
+  в e2e нужен `page.emulateMedia({ reducedMotion: 'reduce' })`.
+- Путь «регистрация → pin → скраб в обе стороны» проверен живой сценой:
+  `lib/motion/SceneFixture.tsx` регистрирует две части под одним id `cards`,
+  e2e прокручивает вперёд и назад. Фикстура включается только `?motion-fixture=1`
+  и только в dev — в `out/` её нет.

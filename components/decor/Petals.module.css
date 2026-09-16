@@ -1,0 +1,60 @@
+/*
+ * The petal layer floats over the whole page, not over the hero only: it is one
+ * fixed layer, so scrolling never re-lays it out. Petals start where CSS puts
+ * them (R09.1) and only ever move by transform (R39).
+ */
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.petal {
+  position: absolute;
+  /* Blur comes from the sprite; the colour comes from the palette. */
+  -webkit-mask-image: var(--petal-sprite);
+  mask-image: var(--petal-sprite);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background: linear-gradient(
+    150deg,
+    rgb(var(--rose-rgb) / 0.95),
+    rgb(var(--peach-rgb) / 0.85) 62%,
+    rgb(var(--lilac-rgb) / 0.75)
+  );
+  transform: translate3d(0, 0, 0) rotate(var(--petal-turn, 0deg));
+  transform-origin: 50% 40%;
+}
+
+/* Depth reads as opacity as well as blur: the far ones are barely there. */
+.depth0 {
+  opacity: 0.72;
+}
+
+.depth1 {
+  opacity: 0.55;
+}
+
+.depth2 {
+  opacity: 0.38;
+}
+
+/* Half the petals below the §10 breakpoint. */
+@media not all and (min-width: 1024px) and (pointer: fine) {
+  .petal[data-optional='true'] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal {
+    /* No drift, no float: they stay exactly where CSS put them. */
+    animation: none;
+  }
+}

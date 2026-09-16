@@ -1,0 +1,59 @@
+/*
+ * The seam cover: a short white flash and a softer bloom behind it. Both start
+ * invisible in CSS, so nothing shows before GSAP wakes up (R09.1), and both
+ * animate on opacity and transform only (R39).
+ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  will-change: auto;
+  contain: strict;
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    rgb(var(--white-rgb) / 1),
+    rgb(var(--white-rgb) / 0.75) 55%,
+    rgb(var(--white-rgb) / 0.35) 100%
+  );
+}
+
+/* The dim that stands in for the flash below the §10 breakpoint. */
+.dim {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    rgb(var(--ink-rgb) / 1),
+    rgb(var(--ink-rgb) / 0.8) 100%
+  );
+}
+
+/* Bloom: a wide lilac-into-white halo that outlives the flash by a beat. */
+.bloom {
+  position: absolute;
+  inset: -20%;
+  opacity: 0;
+  transform: scale(0.92);
+  background: radial-gradient(
+      50% 46% at 50% 40%,
+      rgb(var(--lilac-rgb) / 0.55),
+      transparent 70%
+    ),
+    radial-gradient(60% 52% at 50% 60%, rgb(var(--white-rgb) / 0.5), transparent 72%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    display: none;
+  }
+}

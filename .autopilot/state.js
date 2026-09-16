@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T16:20:59+00:00",
+  "updatedAt": "2026-09-16T16:37:17+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -91,9 +91,9 @@ window.STATE =
         "components/FlashTransition/",
         "components/decor/"
       ],
-      "status": "in-progress",
+      "status": "repair",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 2, "repairFindings": ["коллизия SceneId cards в реестре сцен — две секции волны 3 на один id — R24/R33", "will-change снимается не с тех узлов — R40", "bloom не отдельная фаза после вспышки — R25", "порог яркости меряется по одному слою, а видно композит — R25.1", "главный критерий (pin+скраб) не покрыт тестом, способным покраснеть", "регрессия от первой починки: вспышка шва срабатывает дважды за шаг 9 — по разу на каждую подсцену"],
       "handoffs": 0
     },
     {
@@ -242,6 +242,14 @@ window.STATE =
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
   "concerns": [
+  "tests/flash.test.ts — палитра записана литералами третий раз (после globals.css и tests/palette.test.ts)",
+  "components/FlashTransition/luminance.ts — формула относительной яркости WCAG реализована второй раз, такая же в tests/palette.test.ts",
+  "e2e/motion.spec.ts — фокус ставится из JS вместо нажатия Tab, якорная ссылка не проверяется вовсе",
+  "e2e/motion.spec.ts — toBeAttached вместо toBeVisible: секция, спрятанная display:none, тест пройдёт",
+  "MotionProvider.tsx — ключ motion:scroll один на весь сайт: Impressum и Datenschutz восстановят офсет лендинга",
+  "MotionProvider.tsx — «уменьшить анимацию» спрашивается тремя способами (useState, геттер рантайма, useReducedMotionSafe)",
+  "Petals.tsx — лепестки ниже брейкпоинта скрыты display:none, но всё равно твинятся",
+  "коммит c95826d (таск 01) унёс в себя tests/flash.test.ts, tests/scene-ids.test.ts и правку app/[locale]/layout.tsx — файлы таска 02; точка отката таска 01 шире, чем должна быть",
     "app/(distributor)/page.tsx — инлайн-скрипт повторяет логику negotiateLocale вместо того, чтобы порождаться из неё",
     "app/globals.css — *-rgb каналы синхронизируются с hex вручную, ни один тест не ловит расхождение",
     "tests/palette.test.ts — контраст считается по константам теста, а не по токенам из globals.css",

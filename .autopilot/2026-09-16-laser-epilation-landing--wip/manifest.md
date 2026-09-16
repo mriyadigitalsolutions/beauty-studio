@@ -15,7 +15,7 @@
 | R09 | «GSAP» | in-ticket | — | spec: История 33; §2, §3 → T02 |
 | R10 | «ScrollTrigger» | in-ticket | — | spec: §2, §3 → T02 |
 | R11 | «Lenis» | in-ticket | — | spec: История 34; §2 → T02 |
-| R12 | «Framer Motion» | in-ticket | — | spec: §2 → T02 |
+| R12 | «Framer Motion» | in-ticket |  Роль по §2 — меню, переключатель языка, hover карточек, ripple: это таски 05 и 06, а не мотор | spec: §2 → T05+T06 |
 | R13 | «SVG Masks» | in-ticket | — | spec: Истории 9, 10; §5 → T04 |
 | R14 | «премиальный лендинг» / «уровня Apple/Awwwards» | in-ticket | эталон — весь сайт в ключе reference-hero.png: «Весь сайт в ключе reference-hero.png» | spec: Истории 3, 3a, 48; §9, §14 → T03 |
 | R15 | «премиальный лендинг с кинематографичным скроллом и GSAP-анимациями» | in-ticket | — | spec: История 2; §3, §4 → T02+T06 |
