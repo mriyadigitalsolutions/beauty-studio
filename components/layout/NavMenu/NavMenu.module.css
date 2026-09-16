@@ -1,0 +1,63 @@
+/*
+ * The burger of the reference — two hairlines, nothing else — and a glass
+ * panel under it in the same key as every other card on the page.
+ */
+
+.root {
+  position: relative;
+}
+
+.toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.55rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.toggle span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--ink);
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  /* Hanging from the burger, not centred on it: centred, the panel reaches
+     past the left edge of the page on a narrow screen. */
+  left: 0;
+  z-index: 1;
+  width: max-content;
+  min-width: 11rem;
+  max-width: min(16rem, 70vw);
+  margin: 0;
+  padding: 1rem 1.25rem;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+  border-radius: var(--radius-card);
+  background: rgb(var(--white-rgb) / 0.75);
+  border: 1px solid rgb(var(--white-rgb) / 0.6);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-card);
+}
+
+.panel a {
+  display: block;
+  text-decoration: none;
+  font-size: var(--step-small);
+  letter-spacing: 0.02em;
+  padding-block: 0.15rem;
+}
+
+.panel a:hover {
+  opacity: 0.65;
+}

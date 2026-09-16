@@ -15,7 +15,7 @@
    * ever drift apart, `e2e/hero.spec.ts` fails on the card no longer filling
    * the first screen.
    */
-  --hero-header: calc(2 * var(--page-inset) + 3.875rem);
+  --hero-header: calc(2 * var(--page-inset) + var(--header-bar));
   margin-top: calc(-1 * var(--hero-header));
   padding: var(--page-inset);
 }

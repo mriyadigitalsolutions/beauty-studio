@@ -51,6 +51,10 @@
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
   --section-space: clamp(4rem, 2rem + 8vw, 9rem);
   --page-inset: clamp(0.5rem, 0.2rem + 1.4vw, 1.5rem);
+  /* Height of the sticky header bar. The hero reaches up under the header by
+     exactly this plus its inset, so the number lives here once instead of in
+     both files (ticket 06). */
+  --header-bar: 3.875rem;
 
   /* --- motion (ticket 02 owns the timelines, these are the shared constants) --- */
   --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);

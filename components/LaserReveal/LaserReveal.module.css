@@ -9,6 +9,17 @@
   min-height: 100vh;
   display: grid;
   align-content: center;
+  /*
+   * Above the petal layer (ticket 06, integration). Everywhere else the petals
+   * drift over the card as §14 asks, but this is the one section with a
+   * photograph in it, and a blurred petal lying across skin reads as a stain
+   * on the photograph rather than as decor. The act cannot lift only the
+   * frame — the pinned root and the glass card each open a stacking context
+   * of their own — so the whole act steps over the decor and the petals stay
+   * visible through its glass instead of on top of it.
+   */
+  position: relative;
+  z-index: 4;
 }
 
 .card {

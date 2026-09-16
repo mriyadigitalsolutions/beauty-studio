@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { NavMenu } from '@/components/layout/NavMenu/NavMenu';
 import { PillButton } from '@/components/ui/PillButton/PillButton';
 import { ConfigValue } from '@/components/ui/ConfigValue/ConfigValue';
 import { studio } from '@/config/studio.config';
@@ -9,28 +9,19 @@ import type { Dictionary, Locale } from '@/content';
 import { locales } from '@/content/locales';
 import { localePath } from '@/lib/i18n';
 import { bookingHref, callHref } from '@/lib/contact';
+import { FILM_STOPS, type FilmStopKey } from '@/lib/motion/timeline';
 import styles from './SiteHeader.module.css';
 
-/** Anchors of the sections assembled on the page, in the order of §4. */
-export const NAV_SECTIONS = [
-  'hero',
-  'laserReveal',
-  'skinLayers',
-  'howItWorks',
-  'benefits',
-  'stats',
-  'cta',
-] as const;
+/*
+ * Where the menu can take a visitor — read from the assembled film rather
+ * than listed again here, so a section cannot be renamed in one place and
+ * stay behind in the other (ticket 06, `lib/motion/timeline.ts`).
+ */
+export const NAV_SECTIONS: readonly FilmStopKey[] = FILM_STOPS.map((stop) => stop.key);
 
-export const SECTION_ANCHORS: Record<(typeof NAV_SECTIONS)[number], string> = {
-  hero: 'hero',
-  laserReveal: 'laser-reveal',
-  skinLayers: 'skin-layers',
-  howItWorks: 'how-it-works',
-  benefits: 'benefits',
-  stats: 'stats',
-  cta: 'cta',
-};
+export const SECTION_ANCHORS = Object.fromEntries(
+  FILM_STOPS.map((stop) => [stop.key, stop.anchor]),
+) as Record<FilmStopKey, string>;
 
 export interface SiteHeaderProps {
   locale: Locale;
@@ -38,7 +29,6 @@ export interface SiteHeaderProps {
 }
 
 export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
-  const [open, setOpen] = useState(false);
   const call = callHref();
   const booking = bookingHref();
   const { nav, footer } = dictionary;
@@ -50,17 +40,14 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
           <ConfigValue value={studio.monogram} note={footer.placeholderNote} />
         </Link>
 
-        <button
-          type="button"
-          className={styles.burger}
-          aria-expanded={open}
-          aria-controls="site-menu"
-          aria-label={open ? nav.menuClose : nav.menu}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span />
-          <span />
-        </button>
+        <NavMenu
+          items={FILM_STOPS.map((stop) => ({
+            href: `#${stop.anchor}`,
+            label: nav.items[stop.key],
+          }))}
+          openLabel={nav.menu}
+          closeLabel={nav.menuClose}
+        />
 
         <span className={styles.spacer} />
 
@@ -91,17 +78,6 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         </div>
       </div>
 
-      {open ? (
-        <ul className={styles.menu} id="site-menu">
-          {NAV_SECTIONS.map((section) => (
-            <li key={section}>
-              <Link href={`#${SECTION_ANCHORS[section]}`} onClick={() => setOpen(false)}>
-                {nav.items[section]}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : null}
     </header>
   );
 }

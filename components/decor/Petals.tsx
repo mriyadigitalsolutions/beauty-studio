@@ -8,7 +8,7 @@ import { petalSprite, type PetalDepth } from './petal-sprites';
 import styles from './Petals.module.css';
 
 /*
- * Nine petals in three depths, some of them hanging past the edge of the card
+ * Nine petals in three depths (four of them only above the §10 breakpoint), some of them hanging past the edge of the card
  * exactly as in the reference (story 4). Positions are a fixed table, not
  * random: a random layout would differ between server and client markup, and
  * the layer would jump on hydration.
@@ -25,7 +25,12 @@ interface PetalSpec {
   cycle: number;
   driftX: number;
   driftY: number;
-  /** Hidden below the §10 breakpoint, halving the count on small screens. */
+  /**
+   * Dropped below the §10 breakpoint, where the layer is half the size: nine
+   * petals become four. Rounded down, not up — §10 halves the decor to give a
+   * phone back the paint it needs for the film itself, and a petal kept out of
+   * politeness to arithmetic is the one that costs most.
+   */
   optional?: boolean;
 }
 
@@ -33,7 +38,7 @@ const PETALS: readonly PetalSpec[] = [
   { x: -3, y: 12, size: 15, depth: 2, turn: -24, cycle: 19, driftX: 4, driftY: -6 },
   { x: 13, y: 62, size: 6, depth: 0, turn: 38, cycle: 13, driftX: -5, driftY: -8 },
   { x: 27, y: 19, size: 9, depth: 1, turn: 112, cycle: 16, driftX: 6, driftY: 5, optional: true },
-  { x: 45, y: 88, size: 12, depth: 2, turn: -64, cycle: 22, driftX: -4, driftY: -5 },
+  { x: 45, y: 88, size: 12, depth: 2, turn: -64, cycle: 22, driftX: -4, driftY: -5, optional: true },
   { x: 57, y: 33, size: 4.5, depth: 0, turn: 16, cycle: 11, driftX: 7, driftY: 6, optional: true },
   { x: 74, y: 70, size: 10, depth: 1, turn: -132, cycle: 18, driftX: -6, driftY: 4 },
   { x: 86, y: 14, size: 5.5, depth: 0, turn: 74, cycle: 15, driftX: 5, driftY: 7, optional: true },

@@ -6,6 +6,10 @@
 }
 
 .bar {
+  /* The bar keeps the height the hero reaches up under (`--header-bar`),
+     whatever is put inside it; the hero reads the same token. */
+  min-height: var(--header-bar);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: clamp(0.5rem, 2vw, 1.5rem);
@@ -29,26 +33,6 @@
   text-decoration: none;
   border-radius: 50%;
   border: 1px solid rgb(var(--ink-rgb) / 0.2);
-}
-
-.burger {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0 0.55rem;
-  background: none;
-  border: 0;
-  cursor: pointer;
-}
-
-.burger span {
-  display: block;
-  height: 1px;
-  background: var(--ink);
-  transition: transform var(--duration-fast) var(--ease-soft);
 }
 
 .spacer {
@@ -80,27 +64,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.menu {
-  margin-top: 0.5rem;
-  padding: 1rem 1.25rem;
-  list-style: none;
-  border-radius: var(--radius-card);
-  background: rgb(var(--white-rgb) / 0.75);
-  border: 1px solid rgb(var(--white-rgb) / 0.6);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
-  box-shadow: var(--shadow-card);
-  display: grid;
-  gap: 0.6rem;
-  margin-block-end: 0;
-}
-
-.menu a {
-  text-decoration: none;
-  font-size: var(--step-small);
-  letter-spacing: 0.02em;
 }
 
 /* Below the decision breakpoint the two pills collapse into one. */

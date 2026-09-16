@@ -9,6 +9,7 @@ import { Petals } from '@/components/decor/Petals';
 import { FlashTransition } from '@/components/FlashTransition/FlashTransition';
 import { createFlashLimiter } from '@/components/FlashTransition/flash-limiter';
 import { FLASH_SCENE_IDS, flashAfter, type RegisterableSceneId } from './scene-ids';
+import { DESKTOP_SCENARIO, scenarioLengthVh, scenarioPlayback } from './timeline';
 import { SceneFixture } from './SceneFixture';
 import type {
   FlashPlayer,
@@ -30,7 +31,6 @@ import type {
  * A section only says "here is my element and here is my timeline".
  */
 
-const DESKTOP_SCENARIO = '(min-width: 1024px) and (pointer: fine)';
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 const RESIZE_DEBOUNCE_MS = 200;
 const SCROLL_MEMORY_KEY = 'motion:scroll';
@@ -190,6 +190,16 @@ export function MotionProvider({ children }: { children: ReactNode }) {
           scrub: options.scrub ?? true,
           pin: (options.pin ?? true) && pinAllowed,
         };
+        /* How long this scene is in the scenario now in force — the §10 hook
+           an e2e can read, since a ScrollTrigger's end is not in the DOM. */
+        const lengthVh = scenarioLengthVh(id, options_.lengthVh, desktopQuery.matches);
+        element.dataset.sceneLength = String(lengthVh);
+        /* §10: on a small screen most scenes are a short reveal on entering
+           the screen rather than a timeline tied to the scrollbar. */
+        const playback = scenarioPlayback(id, desktopQuery.matches);
+        const reveal = playback === 'reveal';
+        element.dataset.scenePlayback = playback;
+
         const seam = flashAfter(id);
 
         /*
@@ -227,11 +237,22 @@ export function MotionProvider({ children }: { children: ReactNode }) {
 
         const trigger = ScrollTrigger.create({
           trigger: element,
-          start: options_.start,
+          /* A revealed scene starts the moment its first pixel is on screen
+             (§10: "a short appearance on entering the screen"), not a fraction
+             of a screen later — waiting made the closing screen arrive blank
+             and then need another nudge of the scrollbar to show itself. */
+          start: reveal ? 'top bottom' : options_.start,
           /* Read on every refresh, so rotation and resize keep the scene the
              same number of screen heights long (R24.3). */
-          end: () => `+=${Math.round((window.innerHeight * options_.lengthVh) / 100)}`,
-          scrub: options_.scrub, // scrubs both ways: back up plays it back (R24.1)
+          end: () => {
+            /* §10 owns the length of a scene in the scenario now in force —
+               the section only says how long it wants to be on a desktop. */
+            return `+=${Math.round((window.innerHeight * lengthVh) / 100)}`;
+          },
+          /* Scrubbed: both ways, so back up plays it back (R24.1). Revealed:
+             played once at its own speed as the section comes into view. */
+          scrub: reveal ? false : options_.scrub,
+          toggleActions: reveal ? 'play none none none' : undefined,
           pin: options_.pin ? element : false,
           pinSpacing: options_.pin,
           anticipatePin: options_.pin ? 1 : 0,
@@ -259,6 +280,8 @@ export function MotionProvider({ children }: { children: ReactNode }) {
           element.style.willChange = '';
           delete element.dataset.scenePinned;
           delete element.dataset.scenePart;
+          delete element.dataset.sceneLength;
+          delete element.dataset.scenePlayback;
         };
       };
 

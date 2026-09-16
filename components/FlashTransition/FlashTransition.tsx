@@ -44,6 +44,9 @@ export function FlashTransition({ id }: { id: RegisterableSceneId }) {
       /* How many times this seam has actually lit up — the only way an e2e can
          count flashes, since a 160 ms peak is not something it can sample. */
       root.dataset.flashCount = String(played);
+      /* Which of the two played: a flash, or the dim that stands in for it
+         below the §10 breakpoint. */
+      root.dataset.flashMode = mode;
       root.style.willChange = 'opacity';
       gsap.set(root, { opacity: 1 });
       gsap.set(nodes, { opacity: 0 });

@@ -1,0 +1,71 @@
+/*
+ * A hairline rail on the right edge: one short tick per stop, the current one
+ * longer and darker. Everything here is a token — no colour literal, no
+ * second scale of its own.
+ */
+
+.rail {
+  position: fixed;
+  top: 50%;
+  right: calc(var(--page-inset) + 0.25rem);
+  translate: 0 -50%;
+  z-index: 25;
+  display: grid;
+  gap: 0.75rem;
+  justify-items: end;
+}
+
+.stop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.15rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tick {
+  display: block;
+  width: 1.15rem;
+  height: 1px;
+  background: rgb(var(--ink-rgb) / 0.25);
+  transition:
+    width var(--duration-fast) var(--ease-soft),
+    background-color var(--duration-fast) var(--ease-soft);
+}
+
+.stop[data-current='true'] .tick {
+  width: 2rem;
+  background: rgb(var(--ink-rgb) / 0.75);
+}
+
+.label {
+  font-size: var(--step-eyebrow);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgb(var(--ink-rgb) / 0.7);
+  opacity: 0;
+  translate: 0.35rem 0;
+  transition:
+    opacity var(--duration-fast) var(--ease-soft),
+    translate var(--duration-fast) var(--ease-soft);
+}
+
+.stop:hover .label,
+.stop[data-current='true']:hover .label {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Below the §10 breakpoint the edge belongs to the content, not to a rail. */
+@media not all and (min-width: 1024px) and (pointer: fine) {
+  .rail {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail {
+    display: none;
+  }
+}
