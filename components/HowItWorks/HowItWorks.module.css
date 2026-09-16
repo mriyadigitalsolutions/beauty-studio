@@ -1,12 +1,74 @@
 .section {
   padding: var(--section-space) var(--page-inset) 0;
   scroll-margin-top: 6rem;
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
 }
 
 .card {
-  min-height: 60vh;
   display: grid;
   align-content: center;
-  gap: 1rem;
-  padding: clamp(2rem, 6vw, 5rem) var(--gutter);
+  min-height: min(80vh, 46rem);
+  padding: clamp(1.75rem, 5vw, 4rem) var(--gutter);
+  background-image: radial-gradient(60% 60% at 10% 10%, rgb(var(--white-rgb) / 0.75), transparent 68%);
+}
+
+.inner {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.stepSlot {
+  display: grid;
+}
+
+.step {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  height: 100%;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border-radius: var(--radius-card);
+  background: rgb(var(--white-rgb) / 0.5);
+  border: 1px solid rgb(var(--white-rgb) / 0.6);
+  box-shadow: var(--shadow-pill);
+}
+
+.index {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  color: rgb(var(--ink-rgb) / 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.stepText {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--step-small);
+  line-height: 1.55;
+  color: rgb(var(--ink-rgb) / 0.75);
+}
+
+:global(html[data-motion='full']) .stepSlot {
+  opacity: 0;
 }

@@ -1,12 +1,136 @@
 .section {
   padding: var(--section-space) var(--page-inset) 0;
   scroll-margin-top: 6rem;
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
 }
 
 .card {
-  min-height: 60vh;
   display: grid;
   align-content: center;
-  gap: 1rem;
-  padding: clamp(2rem, 6vw, 5rem) var(--gutter);
+  padding: clamp(1.75rem, 4vw, 3.5rem) var(--gutter);
+  background-image: radial-gradient(70% 80% at 84% 18%, rgb(var(--lilac-rgb) / 0.4), transparent 68%);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  }
+}
+
+.copy {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.notes {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0.75rem 0 0;
+}
+
+.note dt {
+  font-family: var(--font-sans);
+  font-size: var(--step-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.note dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--step-small);
+  line-height: 1.5;
+  color: rgb(var(--ink-rgb) / 0.72);
+  max-width: 44ch;
+}
+
+.figure {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.drawing {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* --- shapes -------------------------------------------------------------
+   The colours are not here: every fill and stroke below comes from the §14
+   token the drawing carries in `skin-geometry.ts`, so the table of roles and
+   what the visitor sees cannot drift apart. */
+
+.band {
+  stroke: rgb(var(--white-rgb) / 0.6);
+  stroke-width: 1;
+}
+
+.shaft {
+  fill: none;
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.bulb {
+  stroke: rgb(var(--white-rgb) / 0.75);
+  stroke-width: 2;
+}
+
+.beam {
+  stroke-width: 10;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.spark {
+  opacity: 0.45;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.label text,
+.beamLabel {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  fill: var(--ink);
+}
+
+.beamLabel {
+  fill: rgb(var(--ink-rgb) / 0.68);
+}
+
+.leader {
+  stroke: rgb(var(--ink-rgb) / 0.25);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.caption {
+  font-family: var(--font-sans);
+  font-size: var(--step-small);
+  color: rgb(var(--ink-rgb) / 0.6);
+  max-width: 46ch;
+}
+
+/* Start states live in CSS so nothing flickers before GSAP boots (story 33),
+   and only while the motor is actually running. */
+:global(html[data-motion='full']) .label {
+  opacity: 0;
+}
+
+:global(html[data-motion='full']) .spark {
+  opacity: 0;
 }
