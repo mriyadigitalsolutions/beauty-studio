@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "title": "Laser-Haarentfernung — dauerhaft glatte Haut",
+    "description": "Sanfte Laser-Haarentfernung für alle Körperzonen. Ruhige Hände, klare Erklärungen und Haut, die sich danach nach nichts anfühlt.",
+    "ogAlt": "Pastellfarbene Aufnahme eines Studios für Laser-Haarentfernung"
+  },
+  "nav": {
+    "menu": "Menü",
+    "menuClose": "Menü schließen",
+    "languageLabel": "Sprache",
+    "call": "Anrufen",
+    "book": "Termin buchen",
+    "bookUnavailable": "Buchung folgt",
+    "skipToContent": "Zum Inhalt springen",
+    "items": {
+      "hero": "Start",
+      "laserReveal": "Der Moment",
+      "skinLayers": "Unter der Haut",
+      "howItWorks": "Ablauf",
+      "benefits": "Vorteile",
+      "prices": "Preise",
+      "stats": "Zahlen",
+      "cta": "Termin"
+    }
+  },
+  "sections": {
+    "hero": {
+      "eyebrow": "Laser-Haarentfernung",
+      "titleLine1": "Glatte Haut,",
+      "titleLine2": "die bleibt",
+      "subtitle": "Sanfte Laser-Haarentfernung, abgestimmt auf Ihre Haut",
+      "lead": "Kein Wachs, keine eingewachsenen Haare, kein ständiges Nachrasieren. Nur Haut, die sich nach nichts anfühlt.",
+      "scrollCta": "So läuft es ab"
+    },
+    "laserReveal": {
+      "eyebrow": "Der Moment",
+      "title": "Haar für Haar, sichtbar weniger",
+      "lead": "Der Lichtimpuls findet das Pigment im Haar, erhitzt es in Millisekunden und löst die Wurzel. Die Haut daneben bleibt kühl — und das Bein bleibt glatt."
+    },
+    "skinLayers": {
+      "eyebrow": "Unter der Oberfläche",
+      "title": "Wohin der Strahl wirklich geht",
+      "lead": "Durch Epidermis und Dermis bis zum Follikel: erst dort liegt genug Pigment, damit die Energie ankommt. Alles darüber bleibt unberührt."
+    },
+    "howItWorks": {
+      "eyebrow": "Ablauf",
+      "title": "Was im Behandlungsraum passiert",
+      "lead": "Wir gehen jeden Schritt vorher mit Ihnen durch: was wir tun, was Sie dabei spüren und worauf Sie danach achten. Nichts passiert unangekündigt."
+    },
+    "benefits": {
+      "eyebrow": "Warum Laser",
+      "title": "Laser statt Wachs",
+      "lead": "Licht arbeitet an der Wurzel, Wachs nur an der Oberfläche. Präzise statt grob, planbar statt zufällig — und ohne die Zwischenzeit, in der man wieder wartet."
+    },
+    "prices": {
+      "eyebrow": "Preise",
+      "title": "Zonen und Preise",
+      "lead": "Jede Zone einzeln, mehrere Zonen als Paket. Was eine Sitzung kostet, wissen Sie, bevor sie beginnt."
+    },
+    "stats": {
+      "eyebrow": "Zahlen",
+      "title": "Was sich zählen lässt",
+      "lead": "Jahre, Sitzungen, Gesichter. Zahlen erzählen nicht alles über eine Behandlung — aber sie sagen, wie oft wir sie schon gemacht haben."
+    },
+    "cta": {
+      "eyebrow": "Termin",
+      "title": "Sprechen wir über Ihre Haut",
+      "lead": "Wir sehen uns Haut und Haarwuchs an, beantworten Ihre Fragen und sagen offen, was sinnvoll ist. Danach entscheiden Sie in Ruhe."
+    }
+  },
+  "footer": {
+    "contactLabel": "Kontakt",
+    "addressLabel": "Adresse",
+    "hoursLabel": "Öffnungszeiten",
+    "socialLabel": "Social Media",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "rights": "Alle Rechte vorbehalten",
+    "placeholderNote": "noch nicht ausgefüllt"
+  },
+  "legal": {
+    "impressum": {
+      "title": "Impressum",
+      "lead": "Angaben gemäß § 5 TMG.",
+      "pending": "Der rechtsverbindliche Text wird von der Studioleitung eingetragen."
+    },
+    "datenschutz": {
+      "title": "Datenschutzerklärung",
+      "lead": "Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.",
+      "pending": "Der rechtsverbindliche Text wird von der Studioleitung eingetragen."
+    }
+  }
+}

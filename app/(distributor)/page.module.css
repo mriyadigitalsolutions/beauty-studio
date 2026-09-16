@@ -1,0 +1,28 @@
+.screen {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.25rem;
+  padding: var(--gutter);
+  text-align: center;
+}
+
+.links {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links a {
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-pill);
+  box-shadow: var(--shadow-pill);
+  text-decoration: none;
+  font-size: var(--step-small);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}

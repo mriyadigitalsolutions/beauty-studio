@@ -29,6 +29,12 @@ __pycache__/
 *.tsbuildinfo
 next-env.d.ts
 
+# --- тесты ---
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+
 # --- деплой ---
 .vercel
 

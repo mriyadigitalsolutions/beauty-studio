@@ -1,0 +1,58 @@
+.footer {
+  padding: var(--section-space) var(--gutter) clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--step-small);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+}
+
+.block dt {
+  font-size: var(--step-eyebrow);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgb(var(--ink-rgb) / 0.6);
+  margin-bottom: 0.4rem;
+}
+
+.block dd {
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.legal {
+  margin-top: clamp(2rem, 6vw, 3.5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: baseline;
+  color: rgb(var(--ink-rgb) / 0.7);
+}
+
+.legal a {
+  text-decoration-color: rgb(var(--ink-rgb) / 0.3);
+  text-underline-offset: 3px;
+}
+
+.spacer {
+  flex: 1;
+}

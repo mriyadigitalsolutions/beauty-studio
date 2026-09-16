@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T15:50:56+00:00",
+  "updatedAt": "2026-09-16T16:13:43+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -59,13 +59,14 @@ window.STATE =
         "components/ui/",
         "components/layout/"
       ],
-      "status": "in-progress",
+      "status": "repair",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1, "repairFindings": ["выдуманные факты о студии в словарях (аппарат, протокол, длительность, число сеансов) — R06", "currency EUR готовым значением вместо заглушки — R06", "нет папки styles/ из структуры брифа — R38"],
       "handoffs": 0
     },
     {
       "id": "02",
+      "startedAt": "2026-09-16T16:07:00+00:00",
       "title": "Мотор: скролл, реестр сцен, вспышка, декор",
       "requirements": [
         "R09",
@@ -90,7 +91,7 @@ window.STATE =
         "components/FlashTransition/",
         "components/decor/"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -240,7 +241,16 @@ window.STATE =
   "additions": [],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
-  "concerns": [],
-  "reviewers": { "manifestSpec": null, "craft": null },
+  "concerns": [
+    "app/(distributor)/page.tsx — инлайн-скрипт повторяет логику negotiateLocale вместо того, чтобы порождаться из неё",
+    "app/globals.css — *-rgb каналы синхронизируются с hex вручную, ни один тест не ловит расхождение",
+    "tests/palette.test.ts — контраст считается по константам теста, а не по токенам из globals.css",
+    "SiteHeader.tsx — якоря секций живут в трёх местах (id секции, SECTION_ANCHORS, SECTION_IDS в e2e), связь ничем не проверена",
+    "playwright.config.ts — e2e идёт против next dev, а поставляется статический экспорт out/",
+    "app/(distributor)/page.tsx — LOCALE_NAMES типизирован Record<string,string>, новый язык не уронит tsc",
+    ".env.example — NEXT_PUBLIC_ANALYTICS_ID не читает ни один файл (лишняя переменная)",
+    "lib/contact — нового модуля нет в «Границах и швах» спецификации (поверхность не дублирует, но карта не совпадает)"
+  ],
+  "reviewers": { "manifestSpec": "a0dadd662daa76a63", "craft": "a039a3e3c1a526671" },
   "blind": null
 }

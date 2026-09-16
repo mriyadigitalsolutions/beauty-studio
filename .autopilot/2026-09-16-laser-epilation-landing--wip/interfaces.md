@@ -67,5 +67,55 @@
 
 ## Что появилось по ходу сборки
 
-_(дописывается, когда таск сдан: новые публичные сигнатуры и решения,
-которые следующим тоже надо знать)_
+### Из таска 01 — каркас
+
+**Команды (проверены):** `npm run dev` · `npm run build` (статический экспорт в `out/`,
+7 страниц) · `npm test` (Vitest, один файл — `npm test -- <path>`) ·
+`npm run test:e2e` (Playwright) · `npm run lint` · `npx tsc --noEmit` ·
+`npm run check:config`.
+
+**Языки**
+- `content/locales`: `locales` = readonly `['de','en','ru']`, тип `Locale`,
+  `defaultLocale`, `isLocale(v: string): v is Locale`
+- `content`: `getDictionary(locale: Locale): Dictionary`; типы `Dictionary`,
+  `SectionText {eyebrow,title,lead}`, `HeroText {eyebrow,titleLine1,titleLine2,subtitle,lead,scrollCta}`
+- секции словаря: `sections.{hero,laserReveal,skinLayers,howItWorks,benefits,prices,stats,cta}`
+  плюс `nav`, `footer`, `legal`, `meta`. **Новые ключи дописывай только внутрь своей секции,
+  сразу в три файла** — иначе `tsc` красный
+- `lib/i18n`: `negotiateLocale(accepted: readonly string[]): Locale`,
+  `localePath(locale: Locale, path?: string): string` (со слешем на конце)
+
+**Факты студии и форматирование**
+- `config/studio.config`: `studio: StudioConfig`, `isPlaceholder(v)`, `hasValue(v)`,
+  типы `PriceZone`, `StatItem`
+- `lib/format`: `formatPrice(value: number, locale: Locale): string`,
+  `formatPhoneHref(phone: string): string` (пустая строка, если заглушка)
+- `lib/contact`: `callHref(): string|null`, `bookingHref(): string|null`,
+  `activeSocials(): {id,href}[]`, `activeMessengers(): {id,href}[]` —
+  **не пиши свою логику «заполнено или нет», бери отсюда**
+
+**Вёрстка**
+- `components/ui/PillButton`: `<PillButton variant='solid'|'ghost' size='sm'|'md'|'lg' href? onClick? disabled? />`
+  — **единственный способ нарисовать кнопку**
+- `components/ui/ConfigValue`: `<ConfigValue value note />` — заглушка с `data-placeholder`
+- `components/layout/SiteHeader`: `<SiteHeader locale dictionary />`, `NAV_SECTIONS`, `SECTION_ANCHORS`
+- `components/layout/SiteFooter`: `<SiteFooter locale dictionary />`
+- Секции: `<HeroSection|LaserReveal|SkinLayers|HowItWorks|Benefits|Stats|CTA dictionary={Dictionary} />`
+  — якоря `hero`, `laser-reveal`, `skin-layers`, `how-it-works`, `benefits`, `stats`, `cta`
+- Токены в `app/globals.css`: `--peach --rose --lilac --sand --ink` (+ `*-rgb`),
+  `--radius-card/pill`, `--blur-glass`, `--shadow-card/pill`,
+  `--font-display/accent/sans`, `--step-*`, `--gutter`, `--section-space`,
+  `--page-inset`, `--ease-soft`
+- Глобальные классы: `.glassCard .meshGradient .contentWidth .eyebrow .lead .visuallyHidden .skipLink`
+  — **ими и пользуйся**, не делай второй стеклянной карточки
+
+**Решения, которые надо знать**
+- `@playwright/test` закреплён на **1.56.0** — только эта версия совпадает
+  с chromium-1194 в `/opt/pw-browsers`. Не обновляй, `playwright install` запрещён.
+- `npm run check:config` читает `.ts`-конфиг напрямую через `--experimental-strip-types`,
+  второго источника правды нет.
+- Шапка сделана `sticky` **над** карточками, а не внутри карточки hero —
+  чтобы переживать pin сцен. Если таску 03 нужно внутрь карточки,
+  правится только `components/layout/SiteHeader/SiteHeader.module.css`.
+- Компонента цен нет: в §4 её нет среди семи секций. Секция словаря
+  `sections.prices` заведена, блок цен ставит **таск 05**.

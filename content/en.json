@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "title": "Laser hair removal — skin that stays smooth",
+    "description": "Gentle laser hair removal for every body zone. Unhurried hands, clear explanations, and skin that afterwards feels like nothing at all.",
+    "ogAlt": "Pastel photograph of a laser hair removal studio"
+  },
+  "nav": {
+    "menu": "Menu",
+    "menuClose": "Close menu",
+    "languageLabel": "Language",
+    "call": "Call us",
+    "book": "Book an appointment",
+    "bookUnavailable": "Booking coming soon",
+    "skipToContent": "Skip to content",
+    "items": {
+      "hero": "Start",
+      "laserReveal": "The moment",
+      "skinLayers": "Under the skin",
+      "howItWorks": "How it works",
+      "benefits": "Benefits",
+      "prices": "Prices",
+      "stats": "Numbers",
+      "cta": "Book"
+    }
+  },
+  "sections": {
+    "hero": {
+      "eyebrow": "Laser hair removal",
+      "titleLine1": "Smooth skin,",
+      "titleLine2": "kept smooth",
+      "subtitle": "Gentle laser hair removal, matched to your skin",
+      "lead": "No wax, no ingrown hairs, no constant re-shaving. Just skin that feels like nothing at all.",
+      "scrollCta": "See how it works"
+    },
+    "laserReveal": {
+      "eyebrow": "The moment",
+      "title": "Hair by hair, visibly less",
+      "lead": "The pulse of light finds the pigment inside the hair, heats it in milliseconds and releases the root. The skin around it stays cool — and the leg stays smooth."
+    },
+    "skinLayers": {
+      "eyebrow": "Below the surface",
+      "title": "Where the beam actually goes",
+      "lead": "Through the epidermis and dermis down to the follicle: only there is there enough pigment for the energy to land. Everything above it is left alone."
+    },
+    "howItWorks": {
+      "eyebrow": "How it works",
+      "title": "What happens in the treatment room",
+      "lead": "We walk you through every step beforehand: what we do, what you will feel while we do it, and what to look after afterwards. Nothing happens unannounced."
+    },
+    "benefits": {
+      "eyebrow": "Why laser",
+      "title": "Laser instead of wax",
+      "lead": "Light works at the root, wax only on the surface. Precise instead of rough, predictable instead of random — and without the in-between phase of waiting to grow back."
+    },
+    "prices": {
+      "eyebrow": "Prices",
+      "title": "Zones and prices",
+      "lead": "Every zone on its own, several zones as a package. You know what a session costs before it starts."
+    },
+    "stats": {
+      "eyebrow": "Numbers",
+      "title": "What can be counted",
+      "lead": "Years, sessions, faces. Numbers never tell you everything about a treatment — but they do tell you how often we have done it."
+    },
+    "cta": {
+      "eyebrow": "Appointment",
+      "title": "Let us talk about your skin",
+      "lead": "We look at your skin and hair growth, answer your questions and say plainly what makes sense. Then you decide, without being rushed."
+    }
+  },
+  "footer": {
+    "contactLabel": "Contact",
+    "addressLabel": "Address",
+    "hoursLabel": "Opening hours",
+    "socialLabel": "Social media",
+    "impressum": "Legal notice",
+    "datenschutz": "Privacy policy",
+    "rights": "All rights reserved",
+    "placeholderNote": "not filled in yet"
+  },
+  "legal": {
+    "impressum": {
+      "title": "Legal notice",
+      "lead": "Provider identification under § 5 TMG.",
+      "pending": "The binding legal text is supplied by the studio owner."
+    },
+    "datenschutz": {
+      "title": "Privacy policy",
+      "lead": "How personal data is processed on this website.",
+      "pending": "The binding legal text is supplied by the studio owner."
+    }
+  }
+}

@@ -1,0 +1,178 @@
+/*
+ * Page-wide styles. The design tokens themselves live in `styles/tokens.css`
+ * and are the only source of truth for the palette (§14), shape, type scale
+ * and rhythm — nothing here redefines them.
+ */
+
+@import '../styles/tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--peach);
+  /* The page field itself is a soft peach wash, the card sits on top of it. */
+  background-image:
+    radial-gradient(60vw 50vh at 12% 6%, rgb(var(--white-rgb) / 0.55), transparent 70%),
+    radial-gradient(70vw 60vh at 88% 88%, rgb(var(--rose-rgb) / 0.55), transparent 72%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--step-h1);
+}
+
+h2 {
+  font-size: var(--step-h2);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --- shared primitives ------------------------------------------------- */
+
+/* The full-bleed glass card of the reference: every section lives in one. */
+.glassCard {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  border: 1px solid rgb(var(--white-rgb) / 0.45);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Mesh gradient of the hero: lilac above centre, rose and peach at the edges,
+   cream in the top-left corner. */
+.meshGradient::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background-image:
+    radial-gradient(38% 42% at 52% 12%, rgb(var(--lilac-rgb) / 0.95), transparent 68%),
+    radial-gradient(46% 38% at 12% 8%, rgb(var(--white-rgb) / 0.9), transparent 62%),
+    radial-gradient(52% 46% at 86% 34%, rgb(var(--lilac-rgb) / 0.7), transparent 70%),
+    radial-gradient(60% 50% at 24% 76%, rgb(var(--rose-rgb) / 0.95), transparent 72%),
+    radial-gradient(56% 46% at 82% 92%, rgb(var(--peach-rgb) / 0.95), transparent 70%);
+  background-color: var(--peach);
+  filter: blur(6px);
+}
+
+.sectionShell {
+  padding-inline: var(--gutter);
+  padding-block: var(--section-space);
+}
+
+.contentWidth {
+  width: min(72rem, 100%);
+  margin-inline: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--step-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgb(var(--ink-rgb) / 0.7);
+}
+
+/* Cormorant carries the lead paragraph of every section (§9). */
+.lead {
+  font-family: var(--font-accent);
+  font-size: var(--step-lead);
+  line-height: 1.5;
+  color: rgb(var(--ink-rgb) / 0.86);
+  max-width: 46ch;
+}
+
+/* A fact the owner has not filled in yet: visible as unfilled, never invented. */
+[data-placeholder] {
+  color: rgb(var(--ink-rgb) / 0.45);
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skipLink {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-pill);
+  font-size: var(--step-small);
+  transition: transform var(--duration-fast) var(--ease-soft);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

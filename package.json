@@ -1,0 +1,49 @@
+{
+  "name": "beauty-studio",
+  "version": "0.1.0",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check:config": "node --experimental-strip-types --no-warnings scripts/check-config.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mriyadigitalsolutions/beauty-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mriyadigitalsolutions/beauty-studio/issues"
+  },
+  "homepage": "https://github.com/mriyadigitalsolutions/beauty-studio#readme",
+  "dependencies": {
+    "framer-motion": "^13.4.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "next": "^15.5.25",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@next/eslint-plugin-next": "^16.3.5",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^22.20.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.1"
+  },
+  "private": true,
+  "type": "module"
+}

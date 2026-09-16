@@ -1,0 +1,46 @@
+.section {
+  padding: var(--page-inset);
+  scroll-margin-top: 0;
+}
+
+.card {
+  position: relative;
+  min-height: min(100svh, 56rem);
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  justify-items: center;
+  text-align: center;
+  padding: clamp(3rem, 10vh, 7rem) var(--gutter);
+}
+
+.center {
+  grid-row: 2;
+  display: grid;
+  gap: clamp(1rem, 3vh, 2rem);
+  justify-items: center;
+}
+
+.title {
+  max-width: 18ch;
+}
+
+.title span {
+  display: block;
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--step-body);
+  color: rgb(var(--ink-rgb) / 0.75);
+  max-width: 44ch;
+}
+
+.lead {
+  max-width: 40ch;
+  text-align: center;
+}
+
+.bottom {
+  grid-row: 3;
+  align-self: end;
+}

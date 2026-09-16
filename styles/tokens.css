@@ -1,0 +1,61 @@
+/*
+ * Palette and page key. Specification §14 — these five colours are the whole
+ * palette; components use the tokens below and never write a hex literal.
+ */
+
+:root {
+  /* --- palette §14 --- */
+  --peach: #F7E7DF; /* page field, light end of the gradients */
+  --rose: #F2D3D8;  /* petals, pink mesh blobs, dermis */
+  --lilac: #E4D0F3; /* top of the mesh gradient, laser beam */
+  --sand: #E8D8CF;  /* cursor glow on hover, subcutaneous layer */
+  --ink: #2C2326;   /* all text, focus ring */
+
+  /* Same colours as channels, for tokens that need an alpha. */
+  --peach-rgb: 247 231 223;
+  --rose-rgb: 242 211 216;
+  --lilac-rgb: 228 208 243;
+  --sand-rgb: 232 216 207;
+  --ink-rgb: 44 35 38;
+  --white-rgb: 255 255 255;
+
+  /* --- surfaces --- */
+  --surface-card: rgb(var(--white-rgb) / 0.42);
+  --surface-pill: rgb(var(--white-rgb) / 0.92);
+  --surface-pill-ghost: rgb(var(--white-rgb) / 0.18);
+  --hairline: rgb(var(--ink-rgb) / 0.08);
+
+  /* --- shape --- */
+  --radius-card: 28px;
+  --radius-pill: 999px;
+  --blur-glass: 24px;
+  --shadow-card: 0 40px 80px -20px rgb(var(--ink-rgb) / 0.18);
+  --shadow-pill: 0 10px 24px -12px rgb(var(--ink-rgb) / 0.35);
+  --shadow-pill-hover: 0 14px 30px -12px rgb(var(--ink-rgb) / 0.42);
+
+  /* --- type --- */
+  --font-display: var(--font-bodoni), 'Bodoni Moda', Didot, 'Times New Roman', serif;
+  --font-accent: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --step-eyebrow: clamp(0.688rem, 0.66rem + 0.14vw, 0.75rem);
+  --step-small: clamp(0.813rem, 0.78rem + 0.16vw, 0.875rem);
+  --step-body: clamp(0.938rem, 0.9rem + 0.2vw, 1.063rem);
+  --step-lead: clamp(1.063rem, 1rem + 0.35vw, 1.25rem);
+  --step-h2: clamp(1.875rem, 1.3rem + 2.4vw, 3.25rem);
+  --step-h1: clamp(2.5rem, 1.2rem + 5.6vw, 5.5rem);
+
+  --tracking-wide: 0.14em;
+
+  /* --- rhythm --- */
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --section-space: clamp(4rem, 2rem + 8vw, 9rem);
+  --page-inset: clamp(0.5rem, 0.2rem + 1.4vw, 1.5rem);
+
+  /* --- motion (ticket 02 owns the timelines, these are the shared constants) --- */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-slow: 520ms;
+
+  color-scheme: light;
+}
