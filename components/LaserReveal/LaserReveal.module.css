@@ -3,10 +3,180 @@
   scroll-margin-top: 6rem;
 }
 
-.card {
-  min-height: 60vh;
+/* One act = one pinned step of §4. Exactly one screen tall, so the pin has
+   nothing to scroll inside it. */
+.act {
+  min-height: 100vh;
   display: grid;
   align-content: center;
+}
+
+.card {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  padding: clamp(1.75rem, 5vw, 3.5rem) var(--gutter);
+}
+
+@media (min-width: 48rem) {
+  .card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 31rem);
+  }
+}
+
+.copy {
+  display: grid;
   gap: 1rem;
-  padding: clamp(2rem, 6vw, 5rem) var(--gutter);
+  align-content: center;
+}
+
+.labels {
+  display: flex;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.unavailable {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  opacity: 0.75;
+}
+
+/* The slot is reserved by aspect-ratio before anything is fetched, so nothing
+   moves when the photograph lands (R04.1, CLS = 0). */
+.stage {
+  position: relative;
+  width: 100%;
+  /* The act is pinned to one screen, so the frame is capped by the height it
+     has, not only by the width — 498 / 720 is the ratio of the prepared crop. */
+  max-width: min(31rem, 62vh * 0.6917);
+  margin: 0 auto;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-card);
+  isolation: isolate;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Photo missing: the scene keeps its place and says so in words, and the
+   scroll carries on past it (R04.2). */
+.stage[data-laser-photo='failed'] {
+  display: none;
+}
+
+/* The negotiating <picture>: it exists to let the browser pick a format and a
+   width, which the SVG then reuses from cache. Never seen, never measured. */
+.negotiator {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hairs line {
+  stroke: rgb(var(--ink-rgb) / 0.42);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+/* Start state in CSS, not in JS, so nothing flashes before GSAP wakes up. */
+.applicator {
+  opacity: 0;
+}
+
+.head {
+  fill: rgb(var(--sand-rgb));
+  stroke: rgb(var(--ink-rgb) / 0.18);
+  stroke-width: 1.8;
+}
+
+.window {
+  fill: rgb(var(--lilac-rgb));
+}
+
+.palm,
+.finger,
+.forearm {
+  fill: rgb(var(--sand-rgb));
+  stroke: rgb(var(--ink-rgb) / 0.22);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.thumb {
+  fill: none;
+  stroke: rgb(var(--sand-rgb));
+  stroke-width: 15;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 1.4px rgb(var(--ink-rgb) / 0.35));
+}
+
+.beam {
+  fill: rgb(var(--lilac-rgb) / 0.32);
+}
+
+.grip {
+  fill: rgb(var(--white-rgb));
+  stroke: rgb(var(--ink-rgb) / 0.14);
+  stroke-width: 1.8;
+}
+
+.cuff {
+  fill: none;
+  stroke: rgb(var(--ink-rgb) / 0.2);
+  stroke-width: 2.6;
+}
+
+.spark {
+  stroke: rgb(var(--lilac-rgb));
+  stroke-width: 3.6;
+  stroke-linecap: round;
+}
+
+.caption {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.tailCard {
+  justify-items: center;
+}
+
+@media (min-width: 48rem) {
+  .tailCard {
+    grid-template-columns: minmax(0, 31rem);
+    justify-content: center;
+  }
+}
+
+/* The settled act only exists in the pinned scenario (§10): everywhere else
+   the first act already ends on that very frame. */
+.tail {
+  display: none;
+}
+
+@media (min-width: 64rem) and (pointer: fine) {
+  .tail {
+    display: grid;
+  }
+}
+
+:global(html[data-motion='reduced']) .tail {
+  display: none;
 }
