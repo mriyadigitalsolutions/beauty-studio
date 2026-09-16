@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T16:50:07+00:00",
+  "updatedAt": "2026-09-16T17:20:26+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -117,7 +117,7 @@ window.STATE =
       "zone": [
         "components/HeroSection/"
       ],
-      "status": "in-progress",
+      "status": "review",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -173,9 +173,9 @@ window.STATE =
         "components/CTA/",
         "components/Prices/"
       ],
-      "status": "in-progress",
+      "status": "repair",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1, "repairFindings": ["защёлка «счётчик один раз» не покрыта ничем — R28.1/R35", "tween набега цифр не принадлежит сцене и переживает её", "Stats и Prices по-разному решают «есть ли данные»", "тест «слои красятся токенами §14» проверяет неиспользуемое поле", "cta-action выводит «сервис настроен» из неравенства двух href"],
       "handoffs": 0
     },
     {
@@ -245,6 +245,20 @@ window.STATE =
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
   "concerns": [
+  "Stats/stat-slots.ts — NUMBER_LOCALE и formatCount дублируют карту локалей из lib/format",
+  "Stats тянет usePageLocale из папки Prices, HowItWorks — hover-константы из папки Benefits: секции зависят от внутренностей соседей",
+  "Prices/usePageLocale.ts — третий способ узнать язык (регулярка по pathname), хотя локаль приходит сверху",
+  "PLACEHOLDER_SLOTS и PLACEHOLDER_ZONE_COUNT — заглушечные строки собираются дважды по одному шаблону",
+  "id заглушек римскими цифрами только чтобы пройти ассерт JSON.stringify(...).not.toMatch(/\\d/)",
+  "пять секций повторяют один каскад timeline.fromTo — форма, а не совпадение; просится хелпер рядом с useScene",
+  "четыре CSS-модуля повторяют одну карточную обвязку при наличии .glassCard",
+  "SkinLayers — схема без role=img/aria-labelledby, подписи внутри того же SVG: скринридер прочтёт дважды",
+  "Benefits рендерит внутри себя <Prices/> — у секции две причины меняться; когда таск 07 получит page.tsx, Prices встаёт на страницу сам",
+  "e2e/sections.spec.ts завязан на немецкие строки словаря — правка копирайта уронит тест",
+  "SkinLayers.module.css — подписи схемы в px единиц viewBox, не отзываются на увеличение шрифта",
+  "sections.howItWorks.steps называют порядки студии (очки, очистка зоны) — фактов с цифрами нет, но владельцу стоит подтвердить",
+  "HeroSection подтянут под sticky-шапку отрицательным margin-top из токенов шапки — хрупкая связь между тасками 01 и 03",
+  "sections.hero.eyebrow и sections.hero.lead остались в трёх словарях, но больше не рендерятся",
   "tests/flash.test.ts — палитра записана литералами третий раз (после globals.css и tests/palette.test.ts)",
   "components/FlashTransition/luminance.ts — формула относительной яркости WCAG реализована второй раз, такая же в tests/palette.test.ts",
   "e2e/motion.spec.ts — фокус ставится из JS вместо нажатия Tab, якорная ссылка не проверяется вовсе",

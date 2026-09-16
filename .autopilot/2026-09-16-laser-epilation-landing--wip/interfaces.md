@@ -174,3 +174,46 @@
   `lib/motion/SceneFixture.tsx` регистрирует две части под одним id `cards`,
   e2e прокручивает вперёд и назад. Фикстура включается только `?motion-fixture=1`
   и только в dev — в `out/` её нет.
+
+### Из таска 05 — кожа, шаги, преимущества, цены, счётчики, CTA
+
+- `components/SkinLayers/skin-geometry`: `SKIN_LAYERS`, `BEAM`, `FOLLICLE_BULB`,
+  `FOLLICLE_SHAFT`, `VIEW_BOX`, `LABEL_X`, типы `SkinLayer`, `SkinLayerId`
+- `components/CTA/cta-action`: `ctaAction(booking, call) => {kind:'booking'|'call'|'none', href, disabled}`
+  — **три состояния кнопки записи, свою логику не пиши**
+- `components/Prices/price-rows`: `priceRows(zones, locale)`; `<Prices dictionary />`;
+  `usePageLocale(): Locale`
+- `components/Stats/stat-slots`: `statSlots(stats, locale, pendingLabel)`,
+  `formatCount(value, locale)`, `PLACEHOLDER_SLOTS = 3`
+- `components/Benefits/card-hover`: `HOVER_LIFT`, `HOVER_SPRING` — **единственное место
+  Framer Motion в секциях** (hover карточек). Курсор и меню — таск 06.
+- Типы словаря из `@/content`: `SkinLayersText, HowItWorksText, BenefitsText,
+  PricesText, StatsText, CtaText, StepText, BenefitText, SkinLayerName`
+- Крючки для e2e: `[data-layer]`, `[data-beam]`, `[data-step]`, `[data-benefit]`,
+  `[data-price-row]`, `[data-stat]`, `[data-stat-value]`, `[data-stat-number]`,
+  `[data-cta-row]`, `[data-cta-unavailable]`
+
+**Что надо знать про шаг 9.** Под id `cards` теперь зарегистрированы три части:
+How It Works (0), Benefits (1) и `<Prices>` внутри Benefits (2, `pin: false`).
+`<Prices>` стоит внутри Benefits — `app/[locale]/page.tsx` не тронут.
+Когда владелец впишет зоны цен, вспышку шва `flash-cards-to-counter` начнёт
+запрашивать именно она как последняя часть шага.
+
+**Известная поломка, чинит таск 06:** `lib/motion/SceneFixture` делит id `cards`
+с живыми секциями, поэтому её части сместились с 0/1 на 2/3 и
+`e2e/motion.spec.ts:86` красный. Либо фикстура берёт собственный id, либо тест
+сравнивает индексы относительно.
+
+### Из таска 03 — hero
+
+- `components/HeroSection/hero-melt`: `HERO_MELT: readonly MeltStep[]`,
+  `MeltStep {target,start,end,shiftRem}`, `MeltTarget = 'title'|'subtitle'|'cta'`,
+  `HERO_MELT_BLUR_PX`, `meltStep(target)`, `meltSelector(target)`
+- Крючки для e2e: `[data-hero-card]`, `[data-hero-melt="title|subtitle|cta"]`
+- Hero регистрирует **две** сцены §4: `pin-hero` (pin, 120vh, владеет швом вспышки)
+  и `hero-fade` (без pin, 120vh). Обе через `useScene`, своего GSAP нет.
+- Hero подтянут под sticky-шапку отрицательным `margin-top` из тех же токенов,
+  что и сама шапка (`2*--page-inset + 3.875rem`). **Меняешь высоту шапки —
+  меняется и это**; расхождение ловит e2e «card fills the first screen».
+- `sections.hero.eyebrow` и `sections.hero.lead` больше не рендерятся: на референсе
+  над заголовком и под подзаголовком ничего нет. Ключи в словарях остались.
