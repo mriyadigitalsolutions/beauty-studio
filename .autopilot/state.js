@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T17:40:46+00:00",
+  "updatedAt": "2026-09-16T18:04:27+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -180,6 +180,7 @@ window.STATE =
     },
     {
       "id": "06",
+      "startedAt": "2026-09-16T18:04:27+00:00",
       "title": "Курсор, меню и сборка 13 шагов в один сценарий",
       "requirements": [
         "R15",
@@ -203,7 +204,7 @@ window.STATE =
         "components/SceneProgress/",
         "lib/motion/timeline.ts"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -239,7 +240,7 @@ window.STATE =
     }
   ],
   "singlePass": null,
-  "tests": { "passed": 88, "failed": 0 },
+  "tests": { "passed": 103, "failed": 0 },
   "debt": { "placeholders": ["R06 — название, телефон, адрес, соцсети, цены, валюта, цифры счётчиков, реквизиты Impressum: 21 поле в config/studio.config.ts", "G01 — юридический текст Impressum и Datenschutz"], "assumptions": ["Didot заменён на Bodoni Moda — веб-лицензии на Didot нет", "Гротеск Inter добавлен для мелкого текста — на референсе подзаголовок гротеском, а три серифа на подписях нечитаемы", "Статический экспорт вместо сервера — лендинг кладётся на любой хостинг", "Шапка sticky над карточками, а не внутри карточки hero — чтобы переживать pin сцен"], "emptyEnv": [] },
   "additions": ["A01 — индикатор прогресса сцен сбоку (таск 06)", "A02 — таблица цен по зонам (таск 05)"],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
