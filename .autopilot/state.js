@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T17:28:22+00:00",
+  "updatedAt": "2026-09-16T17:40:46+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -19,12 +19,12 @@ window.STATE =
     { "id": "briefing",  "status": "done", "finishedAt": "2026-09-16T15:38:31+00:00", "startedAt": "2026-09-16T13:12:19+00:00" },
     { "id": "spec",      "status": "done", "finishedAt": "2026-09-16T15:46:45+00:00", "startedAt": "2026-09-16T15:38:31+00:00" },
     { "id": "plan",      "status": "done", "note": "7 тасков, ярус T2, 5 волн", "finishedAt": "2026-09-16T15:50:37+00:00", "startedAt": "2026-09-16T15:46:45+00:00" },
-    { "id": "build",     "status": "active", "note": "2 из 7 тасков готовы", "startedAt": "2026-09-16T15:50:37+00:00" },
-    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверено 2 из 7" },
+    { "id": "build",     "status": "active", "note": "5 из 7 тасков готовы", "startedAt": "2026-09-16T15:50:37+00:00" },
+    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверено 5 из 7" },
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 59, "done": 31, "inTicket": 27, "inSpec": 0,
+    "total": 59, "done": 52, "inTicket": 6, "inSpec": 0,
     "placeholder": 0, "deferred": 1, "dropped": 0
   },
   "tickets": [
@@ -117,7 +117,7 @@ window.STATE =
       "zone": [
         "components/HeroSection/"
       ],
-      "status": "review",
+      "status": "done", "finishedAt": "2026-09-16T17:40:46+00:00", "commit": "b5f34d9", "tests": { "passed": 88, "failed": 0 },
       "retries": 0,
       "repairs": 1, "repairFindings": ["will-change висел в CSS постоянно на трёх узлах hero — R40", "тест порядка исчезновения был тавтологичным и не мог покраснеть", "мёртвые ключи sections.hero.eyebrow/lead жили в словарях и требовали перевода"],
       "handoffs": 0
@@ -142,7 +142,7 @@ window.STATE =
         "public/scenes/",
         "components/LaserReveal/"
       ],
-      "status": "repair",
+      "status": "done", "finishedAt": "2026-09-16T17:40:46+00:00", "commit": "5b58d15", "tests": { "passed": 88, "failed": 0 },
       "retries": 0,
       "repairs": 1, "repairFindings": ["по ноге едет аппарат без руки, а бриф дважды говорит «рука проводит по ноге» — R22", "BAND продублирована в двух файлах и разъехалась 110 против 30", "волоски создаются дважды и связываются по индексу", "силуэт ноги измеряется скриптом и выбрасывается, геометрия повторяет его литералами"],
       "handoffs": 0
@@ -173,7 +173,7 @@ window.STATE =
         "components/CTA/",
         "components/Prices/"
       ],
-      "status": "repair",
+      "status": "done", "finishedAt": "2026-09-16T17:40:46+00:00", "commit": "851ad96", "tests": { "passed": 88, "failed": 0 },
       "retries": 0,
       "repairs": 1, "repairFindings": ["защёлка «счётчик один раз» не покрыта ничем — R28.1/R35", "tween набега цифр не принадлежит сцене и переживает её", "Stats и Prices по-разному решают «есть ли данные»", "тест «слои красятся токенами §14» проверяет неиспользуемое поле", "cta-action выводит «сервис настроен» из неравенства двух href"],
       "handoffs": 0
@@ -239,7 +239,7 @@ window.STATE =
     }
   ],
   "singlePass": null,
-  "tests": { "passed": 55, "failed": 0 },
+  "tests": { "passed": 88, "failed": 0 },
   "debt": { "placeholders": ["R06 — название, телефон, адрес, соцсети, цены, валюта, цифры счётчиков, реквизиты Impressum: 21 поле в config/studio.config.ts", "G01 — юридический текст Impressum и Datenschutz"], "assumptions": ["Didot заменён на Bodoni Moda — веб-лицензии на Didot нет", "Гротеск Inter добавлен для мелкого текста — на референсе подзаголовок гротеском, а три серифа на подписях нечитаемы", "Статический экспорт вместо сервера — лендинг кладётся на любой хостинг", "Шапка sticky над карточками, а не внутри карточки hero — чтобы переживать pin сцен"], "emptyEnv": [] },
   "additions": ["A01 — индикатор прогресса сцен сбоку (таск 06)", "A02 — таблица цен по зонам (таск 05)"],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
