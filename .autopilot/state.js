@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T17:25:05+00:00",
+  "updatedAt": "2026-09-16T17:28:22+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -142,9 +142,9 @@ window.STATE =
         "public/scenes/",
         "components/LaserReveal/"
       ],
-      "status": "review",
+      "status": "repair",
       "retries": 0,
-      "repairs": 0,
+      "repairs": 1, "repairFindings": ["по ноге едет аппарат без руки, а бриф дважды говорит «рука проводит по ноге» — R22", "BAND продублирована в двух файлах и разъехалась 110 против 30", "волоски создаются дважды и связываются по индексу", "силуэт ноги измеряется скриптом и выбрасывается, геометрия повторяет его литералами"],
       "handoffs": 0
     },
     {
@@ -245,6 +245,11 @@ window.STATE =
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,
     "note": "G2 нашёл 8 пропусков (кнопки шапки, нижняя кнопка hero, дуги, стиль pill-кнопок, гротеск, ключ референса только на hero, порядок спринтов, Didot) и 4 полупокрытия (палитра не выписана, pin только у двух сцен, роль Cormorant, палитра Skin Layers). Все 12 закрыты правкой спецификации; 5 стали новыми строками манифеста R54-R58." },
   "concerns": [
+  "СКВОЗНОЕ: палитра существует в репозитории четырьмя копиями (styles/tokens.css, tests/palette.test.ts, tests/flash.test.ts, tests/hero.test.ts), WCAG-математика — тремя. Единственная находка, повторившаяся в каждом ревью",
+  "LaserReveal — тест hair.at сверяется с формулой, которой сам и создан",
+  "scene-assets.ts — сгенерированные hex невидимы для сторожа палитры только из-за расширения .ts",
+  "LaserReveal — содержание перекошено между шагами hand-reveal и hair-dissolve: растворение целиком в четвёртом, пятый несёт только подпись",
+  "playwright.config.ts переиспользует порт 3100 — при параллельных тасках первый прогон e2e падает с ERR_CONNECTION_REFUSED на живом коде",
   "Stats/stat-slots.ts — NUMBER_LOCALE и formatCount дублируют карту локалей из lib/format",
   "Stats тянет usePageLocale из папки Prices, HowItWorks — hover-константы из папки Benefits: секции зависят от внутренностей соседей",
   "Prices/usePageLocale.ts — третий способ узнать язык (регулярка по pathname), хотя локаль приходит сверху",
