@@ -11,7 +11,7 @@ window.STATE =
   "memoryFile": "CLAUDE.md",
   "skillDir": "/home/user/beauty-studio/.claude/skills/autopilot",
   "startedAt": "2026-09-16T13:10:26+00:00",
-  "updatedAt": "2026-09-16T16:37:17+00:00",
+  "updatedAt": "2026-09-16T16:50:07+00:00",
   "finishedAt": null,
   "stages": [
     { "id": "preflight", "status": "done", "finishedAt": "2026-09-16T13:10:48+00:00", "startedAt": "2026-09-16T13:10:26+00:00" },
@@ -19,12 +19,12 @@ window.STATE =
     { "id": "briefing",  "status": "done", "finishedAt": "2026-09-16T15:38:31+00:00", "startedAt": "2026-09-16T13:12:19+00:00" },
     { "id": "spec",      "status": "done", "finishedAt": "2026-09-16T15:46:45+00:00", "startedAt": "2026-09-16T15:38:31+00:00" },
     { "id": "plan",      "status": "done", "note": "7 тасков, ярус T2, 5 волн", "finishedAt": "2026-09-16T15:50:37+00:00", "startedAt": "2026-09-16T15:46:45+00:00" },
-    { "id": "build",     "status": "active", "note": "1 из 7 тасков готов", "startedAt": "2026-09-16T15:50:37+00:00" },
-    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверен 1 из 7" },
+    { "id": "build",     "status": "active", "note": "2 из 7 тасков готовы", "startedAt": "2026-09-16T15:50:37+00:00" },
+    { "id": "review",    "status": "active", "startedAt": "2026-09-16T16:20:59+00:00", "note": "проверено 2 из 7" },
     { "id": "final",     "status": "pending" }
   ],
   "requirements": {
-    "total": 59, "done": 16, "inTicket": 42, "inSpec": 0,
+    "total": 59, "done": 31, "inTicket": 27, "inSpec": 0,
     "placeholder": 0, "deferred": 1, "dropped": 0
   },
   "tickets": [
@@ -91,13 +91,14 @@ window.STATE =
         "components/FlashTransition/",
         "components/decor/"
       ],
-      "status": "repair",
+      "status": "done", "finishedAt": "2026-09-16T16:50:07+00:00", "commit": "7f903ea", "tests": { "passed": 55, "failed": 0 },
       "retries": 0,
       "repairs": 2, "repairFindings": ["коллизия SceneId cards в реестре сцен — две секции волны 3 на один id — R24/R33", "will-change снимается не с тех узлов — R40", "bloom не отдельная фаза после вспышки — R25", "порог яркости меряется по одному слою, а видно композит — R25.1", "главный критерий (pin+скраб) не покрыт тестом, способным покраснеть", "регрессия от первой починки: вспышка шва срабатывает дважды за шаг 9 — по разу на каждую подсцену"],
       "handoffs": 0
     },
     {
       "id": "03",
+      "startedAt": "2026-09-16T16:50:07+00:00",
       "title": "Hero: первый экран по референсу",
       "requirements": [
         "R03",
@@ -116,13 +117,14 @@ window.STATE =
       "zone": [
         "components/HeroSection/"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
     },
     {
       "id": "04",
+      "startedAt": "2026-09-16T16:50:07+00:00",
       "title": "Laser Reveal: подготовка фото и сцена",
       "requirements": [
         "R04",
@@ -140,13 +142,14 @@ window.STATE =
         "public/scenes/",
         "components/LaserReveal/"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
     },
     {
       "id": "05",
+      "startedAt": "2026-09-16T16:50:07+00:00",
       "title": "Остальные сцены: кожа, шаги, преимущества, счётчики, CTA",
       "requirements": [
         "R26",
@@ -170,7 +173,7 @@ window.STATE =
         "components/CTA/",
         "components/Prices/"
       ],
-      "status": "pending",
+      "status": "in-progress",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0
@@ -236,7 +239,7 @@ window.STATE =
     }
   ],
   "singlePass": null,
-  "tests": { "passed": 52, "failed": 0 },
+  "tests": { "passed": 55, "failed": 0 },
   "debt": { "placeholders": ["R06 — название, телефон, адрес, соцсети, цены, валюта, цифры счётчиков, реквизиты Impressum: 21 поле в config/studio.config.ts", "G01 — юридический текст Impressum и Datenschutz"], "assumptions": ["Didot заменён на Bodoni Moda — веб-лицензии на Didot нет", "Гротеск Inter добавлен для мелкого текста — на референсе подзаголовок гротеском, а три серифа на подписях нечитаемы", "Статический экспорт вместо сервера — лендинг кладётся на любой хостинг", "Шапка sticky над карточками, а не внутри карточки hero — чтобы переживать pin сцен"], "emptyEnv": [] },
   "additions": [],
   "coverage": { "findings": 12, "missing": 8, "halfCovered": 4, "fixed": 12,

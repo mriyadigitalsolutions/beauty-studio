@@ -12,9 +12,9 @@
 | R06 | «Название студии, телефон, адрес, соцсети, цены — заглушки в одном конфиге» | placeholder | — 21 поле ждёт владельца | spec: Истории 19, 20, 42, 43; §8; Открытые места → T01 · c95826d |
 | R07 | «Next.js 15» / «React» | done | — | spec: §1 → T01 · c95826d |
 | R08 | «TypeScript» | done | — | spec: §1 → T01 · c95826d |
-| R09 | «GSAP» | in-ticket | — | spec: История 33; §2, §3 → T02 |
-| R10 | «ScrollTrigger» | in-ticket | — | spec: §2, §3 → T02 |
-| R11 | «Lenis» | in-ticket | — | spec: История 34; §2 → T02 |
+| R09 | «GSAP» | done | — | spec: История 33; §2, §3 → T02 · 7f903ea |
+| R10 | «ScrollTrigger» | done | — | spec: §2, §3 → T02 · 7f903ea |
+| R11 | «Lenis» | done | — | spec: История 34; §2 → T02 · 7f903ea |
 | R12 | «Framer Motion» | in-ticket |  Роль по §2 — меню, переключатель языка, hover карточек, ripple: это таски 05 и 06, а не мотор | spec: §2 → T05+T06 |
 | R13 | «SVG Masks» | in-ticket | — | spec: Истории 9, 10; §5 → T04 |
 | R14 | «премиальный лендинг» / «уровня Apple/Awwwards» | in-ticket | эталон — весь сайт в ключе reference-hero.png: «Весь сайт в ключе reference-hero.png» | spec: Истории 3, 3a, 48; §9, §14 → T03 |
@@ -27,8 +27,8 @@
 | R21 | Laser Reveal: «фиксированная секция» | in-ticket | — | spec: История 8; §4 шаги 4–5 → T04 |
 | R22 | Laser Reveal: «рука движется по ноге» | in-ticket | рука вырезается из фотографии; рисованная — задокументированный фолбэк | spec: §5 → T04 |
 | R23 | Laser Reveal: «волосы исчезают через SVG Mask» | in-ticket | — | spec: История 9; §5 → T04 |
-| R24 | Flash: «Каждая секция закрепляется» | in-ticket | — | spec: Истории 11, 35, 36, 37; §3, §4 → T02+T06 |
-| R25 | Flash: «1. вспышка 2. bloom 3. новая секция» | in-ticket | — | spec: Истории 11, 39; §12 → T02+T06+T07 |
+| R24 | Flash: «Каждая секция закрепляется» | done | — | spec: Истории 11, 35, 36, 37; §3, §4 → T02+T06 · 7f903ea |
+| R25 | Flash: «1. вспышка 2. bloom 3. новая секция» | done | — | spec: Истории 11, 39; §12 → T02+T06+T07 · 7f903ea |
 | R26 | Секция «How It Works» | in-ticket | — | spec: История 12; §4 шаг 9 → T05 |
 | R27 | Секция «Benefits» | in-ticket | — | spec: История 13; §4 шаг 9 → T05 |
 | R28 | Секция «Stats» | in-ticket | — | spec: Истории 14, 44; §4 шаг 11 → T05 |
@@ -42,10 +42,10 @@
 | R36 | Cursor: «hover → тёмный пастельный бежевый» | in-ticket | — | spec: История 6 → T06 |
 | R37 | Cursor: «click → ripple» | in-ticket | — | spec: История 7; §2 → T06 |
 | R38 | Архитектура: «app/ components/{HeroSection,GlowCursor,LaserReveal,FlashTransition,Stats,CTA}/ lib/ styles/ public/» | in-ticket | — | spec: §3, §8; Границы и швы → T01 |
-| R39 | «transform вместо top/left» | in-ticket | — | spec: §11 → T02 |
-| R40 | «will-change» | in-ticket | — | spec: §11 → T02 |
+| R39 | «transform вместо top/left» | done | — | spec: §11 → T02 · 7f903ea |
+| R40 | «will-change» | done | — | spec: §11 → T02 · 7f903ea |
 | R41 | «requestAnimationFrame» | done | — | spec: §2 → T01+T02 · c95826d |
-| R42 | «prefers-reduced-motion» | in-ticket | — | spec: История 22; §12 → T02+T07 |
+| R42 | «prefers-reduced-motion» | done | — | spec: История 22; §12 → T02+T07 · 7f903ea |
 | R43 | «цель: 60 FPS» | in-ticket | десктоп — полный сценарий; мобильный легче: «Десктоп полный, мобильный легче» | spec: История 24; §10, §11 → T07 |
 | R44 | «Lighthouse >95» | in-ticket | >95 меряем на десктопе, мобильный 90+: «Десктоп полный, мобильный легче» | spec: История 25; §1, §11 → T07 |
 | R45 | «Accessibility» (этап 6 мастер-промпта) | in-ticket | — | spec: Истории 23, 46, 47, 39; §12 → T03+T05+T07 |
@@ -60,6 +60,6 @@
 | G01 | «Да, две страницы-заглушки» — Impressum и Datenschutz | in-ticket | ответ пользователя 2026-09-16 | spec: История 21; Вне рамок (текст) → T07 |
 | R54 | Референс: «справа две белые pill-кнопки «CALL US» и «BOOK AN APPOINTMENT» с мягкой тенью» | in-ticket | найдено независимой проверкой G2 | spec: История 3b → T03 |
 | R55 | Референс: «Внизу — одна белая pill-кнопка «SEE OUR TREATMENTS»» | in-ticket | найдено независимой проверкой G2 | spec: История 3c → T03 |
-| R56 | Референс: «Тонкие линии-дуги на фоне» | in-ticket | найдено независимой проверкой G2 | spec: История 3d; §14 → T02 |
+| R56 | Референс: «Тонкие линии-дуги на фоне» | done | найдено независимой проверкой G2 | spec: История 3d; §14 → T02 · 7f903ea |
 | R57 | Референс: «мелкий подзаголовок гротеском» | done | найдено независимой проверкой G2 | spec: История 3f; §9 → T01 · c95826d |
 | R58 | «Sprint 1 — Setup … Sprint 6 — Оптимизация» | done | найдено независимой проверкой G2 | spec: §15 → T01+T02+T03+T04+T05+T06+T07 · c95826d |
