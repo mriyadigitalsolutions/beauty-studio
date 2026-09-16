@@ -15,6 +15,14 @@
 
 .petal {
   position: absolute;
+  /*
+   * On the reference a petal is *darker* than the field it lies on — a coral
+   * shape, not a light patch. Painting rose over a rose card at partial alpha
+   * gave the light patch; multiplying it through deepens the same palette
+   * colour instead of washing it out, so the petal reads as a petal on the
+   * card, past its edge and over a photo alike.
+   */
+  mix-blend-mode: multiply;
   /* Blur comes from the sprite; the colour comes from the palette. */
   -webkit-mask-image: var(--petal-sprite);
   mask-image: var(--petal-sprite);
@@ -22,27 +30,44 @@
   mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  background: linear-gradient(
-    150deg,
-    rgb(var(--rose-rgb) / 0.95),
-    rgb(var(--peach-rgb) / 0.85) 62%,
-    rgb(var(--lilac-rgb) / 0.75)
-  );
+  /*
+   * A denser core with a lighter tip, the way a petal catches light. Rose is
+   * a pale token, so the core is built by multiplying it into itself twice —
+   * the colour stays the palette's, the petal gains the depth the reference
+   * has.
+   */
+  background:
+    radial-gradient(62% 46% at 50% 34%, rgb(var(--rose-rgb) / 1), transparent 78%),
+    radial-gradient(
+      92% 72% at 50% 46%,
+      rgb(var(--rose-rgb) / 1),
+      rgb(var(--rose-rgb) / 0.62) 58%,
+      transparent 94%
+    ),
+    linear-gradient(
+      152deg,
+      rgb(var(--rose-rgb) / 1),
+      rgb(var(--rose-rgb) / 0.94) 46%,
+      rgb(var(--lilac-rgb) / 0.88) 78%,
+      rgb(var(--peach-rgb) / 0.82)
+    );
+  background-blend-mode: multiply, multiply, normal;
   transform: translate3d(0, 0, 0) rotate(var(--petal-turn, 0deg));
   transform-origin: 50% 40%;
 }
 
-/* Depth reads as opacity as well as blur: the far ones are barely there. */
+/* Depth reads as opacity as well as blur — but even the far plane keeps
+   enough colour to be a petal rather than a haze. */
 .depth0 {
-  opacity: 0.72;
+  opacity: 1;
 }
 
 .depth1 {
-  opacity: 0.55;
+  opacity: 0.82;
 }
 
 .depth2 {
-  opacity: 0.38;
+  opacity: 0.6;
 }
 
 /* Half the petals below the §10 breakpoint. */

@@ -91,15 +91,29 @@ test.describe('a scene registered through useScene', () => {
 
     /* Neither registration was swallowed by the other. */
     await expect(page.locator('[data-fixture-part][data-scene-pinned="true"]')).toHaveCount(2);
-    await expect(parts.nth(0)).toHaveAttribute('data-scene', 'cards');
-    await expect(parts.nth(1)).toHaveAttribute('data-scene', 'cards');
+    /* The fixture's id is offstage, so no section can shift these: two parts
+       of one step, numbered in DOM order. */
+    await expect(parts.nth(0)).toHaveAttribute('data-scene', 'offstage-fixture');
+    await expect(parts.nth(1)).toHaveAttribute('data-scene', 'offstage-fixture');
     await expect(parts.nth(0)).toHaveAttribute('data-scene-part', '0');
     await expect(parts.nth(1)).toHaveAttribute('data-scene-part', '1');
 
     const progress = async (index: number) =>
       Number((await parts.nth(index).getAttribute('data-progress')) ?? '0');
 
+    /* The fixture sits below the whole film, so close the distance in long
+       strides first, then scrub in short ones. */
+    const stride = async (reached: () => Promise<boolean>) => {
+      for (let step = 0; step < 60; step += 1) {
+        if (await reached()) return true;
+        await page.mouse.wheel(0, 1500);
+        await page.waitForTimeout(70);
+      }
+      return reached();
+    };
+
     /* Forwards: the timeline follows the scroll. */
+    expect(await stride(async () => (await progress(0)) > 0.05)).toBe(true);
     expect(await wheelUntil(page, 1, async () => (await progress(0)) > 0.6)).toBe(true);
     const forward = await progress(0);
     expect(forward).toBeGreaterThan(0.6);
@@ -126,12 +140,12 @@ test.describe('a scene registered through useScene', () => {
     const progress = async (index: number) =>
       Number((await parts.nth(index).getAttribute('data-progress')) ?? '0');
 
-    const seam = page.locator('[data-flash="flash-cards-to-counter"]');
+    const seam = page.locator('[data-flash="flash-offstage-fixture"]');
     const flashes = async () => Number((await seam.getAttribute('data-flash-count')) ?? '0');
 
     /* Stop short of the first sub-scene's end: nothing has been crossed yet. */
     const approach = async () => {
-      for (let step = 0; step < 40; step += 1) {
+      for (let step = 0; step < 90; step += 1) {
         if ((await progress(0)) > 0.8) return true;
         await page.mouse.wheel(0, 400);
         await page.waitForTimeout(90);
@@ -159,7 +173,8 @@ test.describe('a scene registered through useScene', () => {
     await page.waitForTimeout(900); // longer than the limiter: a duplicate would land
     expect(await flashes()).toBe(1);
 
-    /* Back up the same way: the join again, then the top of the step. */
+    /* Back up the same way, through the seam and then the join: one flash for
+       the pass, and none at the join. */
     expect(await crawl(-1, async () => (await progress(0)) < 0.5)).toBe(true);
     await page.waitForTimeout(900);
     expect(await flashes()).toBe(2);

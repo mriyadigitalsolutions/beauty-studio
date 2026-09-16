@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
   FLASH_SCENE_IDS,
+  OFFSTAGE_SCENE_IDS,
   SCENE_IDS,
   SCENE_SEQUENCE,
   isFlashScene,
+  isOffstageSceneId,
+  isSceneId,
   nextSceneId,
 } from '@/lib/motion/scene-ids';
 
@@ -46,6 +49,18 @@ describe('scene registry', () => {
       'flash-counter-to-cta',
     ]);
     expect(SCENE_SEQUENCE.filter(isFlashScene)).toHaveLength(5);
+  });
+
+  it('keeps the offstage ids out of the film', () => {
+    /* The development fixture registers offstage so that the film's own count
+       of steps and flashes cannot be moved by a test double. */
+    for (const id of Object.values(OFFSTAGE_SCENE_IDS)) {
+      expect(SCENE_SEQUENCE).not.toContain(id);
+      expect(FLASH_SCENE_IDS).not.toContain(id);
+      expect(isSceneId(id)).toBe(false);
+      expect(isOffstageSceneId(id)).toBe(true);
+    }
+    expect(SCENE_SEQUENCE.every((id) => !isOffstageSceneId(id))).toBe(true);
   });
 
   it('knows which step follows a given one, and that the film ends at the CTA', () => {

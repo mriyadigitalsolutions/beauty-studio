@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { SCENE_IDS } from './scene-ids';
+import { FlashTransition } from '@/components/FlashTransition/FlashTransition';
+import { OFFSTAGE_SCENE_IDS } from './scene-ids';
 import { useScene } from './useScene';
 import type { SceneBuild } from './types';
 
@@ -10,10 +11,16 @@ import type { SceneBuild } from './types';
  * the page is opened with `?motion-fixture=1`, and it is compiled out of the
  * production export entirely (`MotionProvider` guards it on NODE_ENV).
  *
- * Why it is here at all: `useScene` is the seam ticket 03–05 build on, and
- * until a section calls it the pin-and-scrub path is only a claim. Both parts
- * below register under the *same* scene id — step 9 of §4 carries two sections
- * — so the fixture also proves that the second one does not evict the first.
+ * Why it is here at all: `useScene` is the seam the sections build on, and a
+ * mechanism no one exercises is only a claim. Both parts below register under
+ * the *same* id — as step 9 of §4 is carried by two sections — so the fixture
+ * also proves that the second one does not evict the first and that the seam
+ * after the step lights once, not once per part.
+ *
+ * The id is deliberately offstage, not `cards`: sharing a film id made the
+ * fixture's result depend on how many sections happened to be registered next
+ * to it, so the page growing could turn its test red without anything being
+ * broken. Offstage, it carries its own seam and its own flash overlay.
  */
 
 const FIXTURE_LENGTH_VH = 120;
@@ -37,7 +44,7 @@ function part(index: number): SceneBuild {
 }
 
 function FixturePart({ index }: { index: number }) {
-  const ref = useScene<HTMLDivElement>(SCENE_IDS.cards, part(index), {
+  const ref = useScene<HTMLDivElement>(OFFSTAGE_SCENE_IDS.fixtureStep, part(index), {
     lengthVh: FIXTURE_LENGTH_VH,
   });
 
@@ -72,6 +79,9 @@ export function SceneFixture() {
       <FixturePart index={0} />
       <FixturePart index={1} />
       <div style={{ height: '150vh' }} />
+      {/* The step's own seam cover: offstage scenes get no overlay from the
+          provider, which mounts the five of the film and nothing else. */}
+      <FlashTransition id={OFFSTAGE_SCENE_IDS.fixtureFlash} />
     </div>
   );
 }

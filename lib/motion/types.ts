@@ -1,4 +1,4 @@
-import type { SceneId } from './scene-ids';
+import type { RegisterableSceneId } from './scene-ids';
 
 /**
  * What a section gets when its scene is built. The section describes what
@@ -30,11 +30,14 @@ export interface SceneOptions {
 }
 
 export interface SceneRegistration {
-  id: SceneId;
+  id: RegisterableSceneId;
   element: HTMLElement;
   build: SceneBuild;
   options: SceneOptions;
 }
+
+/** Which way a seam was crossed. */
+export type SeamEdge = 'leave' | 'enterBack';
 
 /** Plays one seam flash. Returns nothing; the limiter decides whether it runs. */
 export type FlashPlayer = (mode: 'flash' | 'dim') => void;
@@ -44,9 +47,9 @@ export interface MotionRuntime {
   /** Registers a scene and returns its teardown. */
   registerScene(registration: SceneRegistration): () => void;
   /** Registers the overlay that covers one seam; returns its teardown. */
-  registerFlash(id: SceneId, play: FlashPlayer): () => void;
+  registerFlash(id: RegisterableSceneId, play: FlashPlayer): () => void;
   /** Asks for the flash at `id`; refused when it would come too soon (§12). */
-  requestFlash(id: SceneId): void;
+  requestFlash(id: RegisterableSceneId): void;
   /**
    * Page scroll progress, 0..1, pushed from the single scroll loop. Use this
    * instead of creating another ScrollTrigger or another rAF.

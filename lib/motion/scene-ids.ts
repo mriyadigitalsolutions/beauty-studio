@@ -62,23 +62,53 @@ export const FLASH_SCENE_IDS: readonly SceneId[] = SCENE_SEQUENCE.filter((id) =>
 
 export type FlashSceneId = (typeof FLASH_SCENE_IDS)[number];
 
+/*
+ * Ids that are deliberately *not* steps of the film. The development fixture
+ * registers here: sharing a film id made what it measured depend on how many
+ * sections happened to be on the page that week, which is the opposite of a
+ * fixture. Nothing in the film may use these, and nothing here counts towards
+ * the thirteen steps or the five flashes.
+ */
+export const OFFSTAGE_SCENE_IDS = {
+  /** A step outside the film, carried by several parts, like step 9. */
+  fixtureStep: 'offstage-fixture',
+  /** The seam at the end of that step. */
+  fixtureFlash: 'flash-offstage-fixture',
+} as const;
+
+export type OffstageSceneId = (typeof OFFSTAGE_SCENE_IDS)[keyof typeof OFFSTAGE_SCENE_IDS];
+
+/** Anything the motion runtime will register: the film, plus what is offstage. */
+export type RegisterableSceneId = SceneId | OffstageSceneId;
+
+/** What follows what, outside the film. */
+const OFFSTAGE_SEQUENCE: Record<OffstageSceneId, OffstageSceneId | null> = {
+  [OFFSTAGE_SCENE_IDS.fixtureStep]: OFFSTAGE_SCENE_IDS.fixtureFlash,
+  [OFFSTAGE_SCENE_IDS.fixtureFlash]: null,
+};
+
 export function isSceneId(value: string): value is SceneId {
   return (SCENE_SEQUENCE as readonly string[]).includes(value);
 }
 
-export function isFlashScene(id: SceneId): boolean {
+export function isOffstageSceneId(value: string): value is OffstageSceneId {
+  return Object.values(OFFSTAGE_SCENE_IDS).includes(value as OffstageSceneId);
+}
+
+export function isFlashScene(id: RegisterableSceneId): boolean {
   return id.startsWith('flash-');
 }
 
-/** The step that follows `id` in the film, or null at the closing screen. */
-export function nextSceneId(id: SceneId): SceneId | null {
-  const index = SCENE_SEQUENCE.indexOf(id);
+/** The step that follows `id`, or null at the end of its sequence. */
+export function nextSceneId(id: RegisterableSceneId): RegisterableSceneId | null {
+  if (isOffstageSceneId(id)) return OFFSTAGE_SEQUENCE[id];
+  const index = SCENE_SEQUENCE.indexOf(id as SceneId);
   if (index < 0) return null;
   return SCENE_SEQUENCE[index + 1] ?? null;
 }
 
 /** The seam right after `id`, when there is one — used to fire its flash. */
-export function flashAfter(id: SceneId): SceneId | null {
+export function flashAfter(id: RegisterableSceneId): RegisterableSceneId | null {
   const next = nextSceneId(id);
   return next !== null && isFlashScene(next) ? next : null;
 }

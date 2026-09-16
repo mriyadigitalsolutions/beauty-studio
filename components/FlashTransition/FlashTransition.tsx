@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useMotionRuntime } from '@/lib/motion/useScene';
-import type { SceneId } from '@/lib/motion/scene-ids';
+import type { RegisterableSceneId } from '@/lib/motion/scene-ids';
 import { DIM_PHASES, FLASH_PHASES, type FlashPhase } from './flash-phases';
 import styles from './FlashTransition.module.css';
 
@@ -15,7 +15,7 @@ export { flashDuration } from './flash-limiter';
  * `flash-phases.ts`, which is also what `tests/flash.test.ts` measures — so
  * the brightness the test proves is the brightness the page plays.
  */
-export function FlashTransition({ id }: { id: SceneId }) {
+export function FlashTransition({ id }: { id: RegisterableSceneId }) {
   const overlay = useRef<HTMLDivElement | null>(null);
   const flash = useRef<HTMLDivElement | null>(null);
   const dim = useRef<HTMLDivElement | null>(null);

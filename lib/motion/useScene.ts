@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useRef, type RefObject } from 'react';
 import { MotionContext } from './MotionProvider';
-import type { SceneId } from './scene-ids';
+import type { RegisterableSceneId } from './scene-ids';
 import type { MotionRuntime, SceneBuild, SceneOptions } from './types';
 
 export function useMotionRuntime(): MotionRuntime | null {
@@ -18,7 +18,7 @@ export function useMotionRuntime(): MotionRuntime | null {
  * scene itself is rebuilt only when `id` or the options change.
  */
 export function useScene<T extends HTMLElement = HTMLElement>(
-  id: SceneId,
+  id: RegisterableSceneId,
   build: SceneBuild,
   options: SceneOptions = {},
 ): RefObject<T | null> {

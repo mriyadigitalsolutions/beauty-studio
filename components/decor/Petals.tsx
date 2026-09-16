@@ -17,7 +17,7 @@ interface PetalSpec {
   /** Percentages of the viewport — negative values hang past the edge. */
   x: number;
   y: number;
-  /** Size in vmin. */
+  /** Size in vmin — the near plane is small and sharp, the far plane wide. */
   size: number;
   depth: PetalDepth;
   turn: number;
@@ -30,15 +30,15 @@ interface PetalSpec {
 }
 
 const PETALS: readonly PetalSpec[] = [
-  { x: -6, y: 8, size: 26, depth: 2, turn: -24, cycle: 19, driftX: 4, driftY: -6 },
-  { x: 12, y: 64, size: 14, depth: 0, turn: 38, cycle: 13, driftX: -5, driftY: -8 },
-  { x: 28, y: 18, size: 9, depth: 1, turn: 112, cycle: 16, driftX: 6, driftY: 5, optional: true },
-  { x: 44, y: 86, size: 18, depth: 2, turn: -64, cycle: 22, driftX: -4, driftY: -5 },
-  { x: 58, y: 34, size: 7, depth: 0, turn: 16, cycle: 11, driftX: 7, driftY: 6, optional: true },
-  { x: 72, y: 72, size: 22, depth: 1, turn: -132, cycle: 18, driftX: -6, driftY: 4 },
-  { x: 88, y: 12, size: 12, depth: 0, turn: 74, cycle: 15, driftX: 5, driftY: 7, optional: true },
-  { x: 96, y: 52, size: 30, depth: 2, turn: 148, cycle: 24, driftX: -3, driftY: -4 },
-  { x: 34, y: 46, size: 11, depth: 1, turn: -96, cycle: 17, driftX: 4, driftY: -7, optional: true },
+  { x: -3, y: 12, size: 15, depth: 2, turn: -24, cycle: 19, driftX: 4, driftY: -6 },
+  { x: 13, y: 62, size: 6, depth: 0, turn: 38, cycle: 13, driftX: -5, driftY: -8 },
+  { x: 27, y: 19, size: 9, depth: 1, turn: 112, cycle: 16, driftX: 6, driftY: 5, optional: true },
+  { x: 45, y: 88, size: 12, depth: 2, turn: -64, cycle: 22, driftX: -4, driftY: -5 },
+  { x: 57, y: 33, size: 4.5, depth: 0, turn: 16, cycle: 11, driftX: 7, driftY: 6, optional: true },
+  { x: 74, y: 70, size: 10, depth: 1, turn: -132, cycle: 18, driftX: -6, driftY: 4 },
+  { x: 86, y: 14, size: 5.5, depth: 0, turn: 74, cycle: 15, driftX: 5, driftY: 7, optional: true },
+  { x: 97, y: 50, size: 16, depth: 2, turn: 148, cycle: 24, driftX: -3, driftY: -4 },
+  { x: 35, y: 46, size: 7, depth: 1, turn: -96, cycle: 17, driftX: 4, driftY: -7, optional: true },
 ];
 
 export function Petals({ count = PETALS.length }: { count?: number }) {
@@ -114,9 +114,9 @@ export function Petals({ count = PETALS.length }: { count?: number }) {
               left: `${petal.x}%`,
               top: `${petal.y}%`,
               width: `${petal.size}vmin`,
-              height: `${petal.size * 1.15}vmin`,
+              height: `${petal.size * 1.75}vmin`, // a petal is taller than it is wide
               marginLeft: `${-petal.size / 2}vmin`,
-              marginTop: `${-petal.size / 2}vmin`,
+              marginTop: `${(-petal.size * 1.75) / 2}vmin`,
               '--petal-sprite': petalSprite(petal.depth),
               '--petal-turn': `${petal.turn}deg`,
             } as React.CSSProperties

@@ -8,9 +8,15 @@ import { Arcs } from '@/components/decor/Arcs';
 import { Petals } from '@/components/decor/Petals';
 import { FlashTransition } from '@/components/FlashTransition/FlashTransition';
 import { createFlashLimiter } from '@/components/FlashTransition/flash-limiter';
-import { FLASH_SCENE_IDS, flashAfter, type SceneId } from './scene-ids';
+import { FLASH_SCENE_IDS, flashAfter, type RegisterableSceneId } from './scene-ids';
 import { SceneFixture } from './SceneFixture';
-import type { FlashPlayer, MotionRuntime, SceneOptions, SceneRegistration } from './types';
+import type {
+  FlashPlayer,
+  MotionRuntime,
+  SceneOptions,
+  SceneRegistration,
+  SeamEdge,
+} from './types';
 
 /*
  * One owner for the whole scroll (specification §2, §3):
@@ -72,7 +78,7 @@ export function MotionProvider({ children }: { children: ReactNode }) {
      first — one of the two would quietly stop pinning. Every registration is
      its own entry with its own trigger and its own teardown. */
   const scenes = useRef(new Set<{ registration: SceneRegistration; kill: (() => void) | null }>());
-  const flashes = useRef(new Map<SceneId, FlashPlayer>());
+  const flashes = useRef(new Map<RegisterableSceneId, FlashPlayer>());
   const listeners = useRef(new Set<(progress: number) => void>());
   const limiter = useRef(createFlashLimiter());
   const buildScene = useRef<((registration: SceneRegistration) => (() => void) | null) | null>(null);
@@ -204,6 +210,21 @@ export function MotionProvider({ children }: { children: ReactNode }) {
           return owner === undefined || owner === registration;
         };
 
+        /*
+         * Pinning shifts the layout at the very moment the boundary is
+         * crossed, so a scroll that settles on a seam crosses it several times
+         * and raises several `onLeave`s. A crossing arms again only once the
+         * scene has been genuinely re-entered — a tenth of its length back
+         * inside — which tells a wobble on the boundary from a visitor who
+         * really scrolled back up and came down again.
+         */
+        const armed: Record<SeamEdge, boolean> = { leave: true, enterBack: true };
+        const cross = (edge: SeamEdge) => {
+          if (!seam || !ownsSeam(edge) || !armed[edge]) return;
+          armed[edge] = false;
+          runtime.current?.requestFlash(seam);
+        };
+
         const trigger = ScrollTrigger.create({
           trigger: element,
           start: options_.start,
@@ -220,12 +241,14 @@ export function MotionProvider({ children }: { children: ReactNode }) {
             /* will-change only while the scene is on screen (R40). */
             element.style.willChange = self.isActive ? WILL_CHANGE : '';
           },
-          onLeave: () => {
-            if (seam && ownsSeam('leave')) runtime.current?.requestFlash(seam);
+          onUpdate: (self) => {
+            if (self.progress < 0.9) {
+              armed.leave = true;
+              armed.enterBack = true;
+            }
           },
-          onEnterBack: () => {
-            if (seam && ownsSeam('enterBack')) runtime.current?.requestFlash(seam);
-          },
+          onLeave: () => cross('leave'),
+          onEnterBack: () => cross('enterBack'),
         });
 
         if (options_.pin) element.dataset.scenePinned = 'true';

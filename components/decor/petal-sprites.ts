@@ -9,9 +9,14 @@
 
 const VIEWBOX = 120;
 
-/** Stroke-free petal: a leaf-ish teardrop, wide at the base, curled at the tip. */
+/*
+ * A blossom petal as the reference draws it: narrow, rounded at the top,
+ * drawn to a tip at the bottom, with one side fuller than the other. A round
+ * teardrop reads as a light blob once it is blurred; this one keeps a petal's
+ * silhouette even in the far plane.
+ */
 const PETAL_PATH =
-  'M60 6 C86 26 104 52 104 76 C104 100 84 116 60 116 C36 116 16 100 16 76 C16 52 34 26 60 6 Z';
+  'M60 116 C 31 93 15 63 21 39 C 26 16 43 5 60 5 C 77 5 97 17 101 40 C 106 67 88 96 60 116 Z';
 
 function sprite(blur: number): string {
   const svg =
@@ -23,7 +28,12 @@ function sprite(blur: number): string {
 }
 
 /** Depth 0 is nearest and crispest, depth 2 is the far, heavily blurred haze. */
-export const PETAL_SPRITES: readonly string[] = [sprite(1.5), sprite(5), sprite(12)];
+/*
+ * Three degrees of blur, and the strongest one is still a petal: past roughly
+ * a tenth of the sprite the silhouette dissolves into a glow, which is exactly
+ * the "засветка" the reference does not have.
+ */
+export const PETAL_SPRITES: readonly string[] = [sprite(0.8), sprite(3.2), sprite(7)];
 
 export type PetalDepth = 0 | 1 | 2;
 
