@@ -14,6 +14,11 @@
   align-items: center;
   gap: clamp(0.5rem, 2vw, 1.5rem);
   padding: 0.5rem 0.75rem;
+  /* Narrow screens: the row must shrink inside the bar rather than push its
+     last pill past the right inset. Without this the actions keep their
+     content width and the bar overflows on the right only, which reads as a
+     button glued to the edge while the monogram keeps its 30 px on the left. */
+  min-width: 0;
   border-radius: var(--radius-pill);
   background: rgb(var(--white-rgb) / 0.3);
   border: 1px solid rgb(var(--white-rgb) / 0.4);
@@ -64,6 +69,11 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
+}
+
+.actions > * {
+  min-width: 0;
 }
 
 /* Below the decision breakpoint the two pills collapse into one. */

@@ -161,6 +161,19 @@
       "title": "Datenschutzerklärung",
       "lead": "Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.",
       "pending": "Der rechtsverbindliche Text wird von der Studioleitung eingetragen."
-    }
+    },
+    "lawyerNote": "Der rechtsverbindliche Text dieser Seite wird von der Rechtsberatung der Studioleitung verfasst und hier eingesetzt. Bis dahin steht hier bewusst kein Text: ein erfundener Text über die Verarbeitung personenbezogener Daten wäre schlechter als gar keiner.",
+    "detailsLabel": "Angaben aus der Konfiguration",
+    "configLabel": "In den Text der Rechtsberatung werden die folgenden Felder aus config/studio.config.ts eingesetzt:",
+    "fields": {
+      "entity": "Juristische Person",
+      "registration": "Registerangaben",
+      "responsible": "Verantwortlich für den Inhalt",
+      "vatId": "Umsatzsteuer-Identifikationsnummer",
+      "address": "Anschrift",
+      "phone": "Telefon",
+      "email": "E-Mail"
+    },
+    "backHome": "Zurück zur Startseite"
   }
 }

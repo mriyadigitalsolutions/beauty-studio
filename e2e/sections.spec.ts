@@ -110,7 +110,7 @@ test.describe('counters (stories 14, 20)', () => {
   });
 });
 
-test.describe('the counter runs once (story 14, 44)', () => {
+test.describe('the counter runs once (story 14, 44)', { tag: '@dev-fixture' }, () => {
   /* Numbers for the run-up come from the query, not from the config: the
      studio's own figures stay placeholders until the owner types them (§8). */
   const FIXTURE = '/de/?stats-fixture=1200,8,340';

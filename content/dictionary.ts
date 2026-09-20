@@ -159,5 +159,22 @@ export interface Dictionary {
   legal: {
     impressum: { title: string; lead: string; pending: string };
     datenschutz: { title: string; lead: string; pending: string };
+    /** Says in as many words that the binding text is the lawyer's, not ours. */
+    lawyerNote: string;
+    /** Heading over the owner's registration details. */
+    detailsLabel: string;
+    /** Introduces the list of config fields the lawyer's text draws on. */
+    configLabel: string;
+    /** Labels of those fields, in the order the page shows them. */
+    fields: {
+      entity: string;
+      registration: string;
+      responsible: string;
+      vatId: string;
+      address: string;
+      phone: string;
+      email: string;
+    };
+    backHome: string;
   };
 }

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { ConfigValue } from '@/components/ui/ConfigValue/ConfigValue';
 import { studio } from '@/config/studio.config';
 import type { Dictionary, Locale } from '@/content';
@@ -70,8 +69,12 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
       </div>
 
       <div className={styles.legal}>
-        <Link href={localePath(locale, '/impressum')}>{footer.impressum}</Link>
-        <Link href={localePath(locale, '/datenschutz')}>{footer.datenschutz}</Link>
+        {/* Plain anchors, not <Link>: leaving the film client-side tears down
+            thirteen pinned scenes whose spacers wrap React-owned nodes, and
+            React then cannot remove what it no longer owns. A legal page is
+            read once and is worth a fresh document. */}
+        <a href={localePath(locale, '/impressum')}>{footer.impressum}</a>
+        <a href={localePath(locale, '/datenschutz')}>{footer.datenschutz}</a>
         <span className={styles.spacer} />
         <small>
           © {new Date().getFullYear()} <ConfigValue value={studio.name} note={footer.placeholderNote} />.{' '}

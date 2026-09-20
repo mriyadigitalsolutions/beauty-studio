@@ -17,9 +17,10 @@ import {
   phasesDuration,
   type FlashPhase,
 } from '@/components/FlashTransition/flash-phases';
+import { BACKDROPS } from './support/palette';
 
-/* Page backgrounds a seam cover can sit on — palette §14 minus --ink, which is text. */
-const BACKDROPS = ['#F7E7DF', '#F2D3D8', '#E4D0F3', '#E8D8CF'];
+/* Page backgrounds a seam cover can sit on — palette §14 minus --ink, which is
+   text. Read out of `styles/tokens.css`: the palette is written once. */
 
 /*
  * What the eye actually gets at a moment in time: every layer that is up at

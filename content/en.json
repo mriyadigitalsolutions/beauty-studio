@@ -161,6 +161,19 @@
       "title": "Privacy policy",
       "lead": "How personal data is processed on this website.",
       "pending": "The binding legal text is supplied by the studio owner."
-    }
+    },
+    "lawyerNote": "The binding text of this page is written by the owner's lawyer and inserted here. Until then it is deliberately left empty: an invented text about the processing of personal data would be worse than none at all.",
+    "detailsLabel": "Details from the configuration",
+    "configLabel": "The following fields of config/studio.config.ts are substituted into the lawyer's text:",
+    "fields": {
+      "entity": "Legal entity",
+      "registration": "Registration details",
+      "responsible": "Responsible for the content",
+      "vatId": "VAT identification number",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "backHome": "Back to the home page"
   }
 }

@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { HERO_MELT, HERO_MELT_BLUR_PX, meltStep } from '@/components/HeroSection/hero-melt';
+import { composite, contrastRatio, relativeLuminance } from '@/lib/color/wcag';
+import { PALETTE, layersOf, repoRoot, rgbTokenHex } from './support/palette';
 
 /*
  * Story 5 (R20): "the hero copy melts, it does not slide away as one block —
@@ -35,70 +37,33 @@ describe('the hero melt score', () => {
 
 /* ---------------------------------------------------------------------- */
 
-const root = new URL('..', import.meta.url).pathname;
-const tokens = readFileSync(join(root, 'styles/tokens.css'), 'utf8');
-const globals = readFileSync(join(root, 'app/globals.css'), 'utf8');
-const heroCss = readFileSync(join(root, 'components/HeroSection/HeroSection.module.css'), 'utf8');
-
-/** Specification §14 — the palette, quoted rather than read back from the CSS. */
-const PALETTE: Record<string, [number, number, number]> = {
-  peach: [247, 231, 223],
-  rose: [242, 211, 216],
-  lilac: [228, 208, 243],
-  sand: [232, 216, 207],
-  ink: [44, 35, 38],
-  white: [255, 255, 255],
-};
-
-type Rgb = [number, number, number];
-
-function luminance([r, g, b]: Rgb): number {
-  const [lr, lg, lb] = [r, g, b]
-    .map((channel) => channel / 255)
-    .map((channel) => (channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4));
-  return 0.2126 * lr! + 0.7152 * lg! + 0.0722 * lb!;
-}
-
-function contrast(a: Rgb, b: Rgb): number {
-  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (light! + 0.05) / (dark! + 0.05);
-}
-
-function over(layer: Rgb, base: Rgb, alpha: number): Rgb {
-  return [0, 1, 2].map((i) => layer[i]! * alpha + base[i]! * (1 - alpha)) as Rgb;
-}
-
-/** Every `rgb(var(--x-rgb) / a)` inside the first block matching `selector`. */
-function layersOf(css: string, selector: string): { color: Rgb; alpha: number }[] {
-  const block = css.slice(css.indexOf(selector));
-  const body = block.slice(0, block.indexOf('}'));
-  return [...body.matchAll(/rgb\(var\(--([a-z]+)-rgb\)\s*\/\s*([\d.]+)\)/g)].map((match) => ({
-    color: PALETTE[match[1]!]!,
-    alpha: Number(match[2]),
-  }));
-}
+const tokens = readFileSync(join(repoRoot, 'styles/tokens.css'), 'utf8');
+const globals = readFileSync(join(repoRoot, 'app/globals.css'), 'utf8');
+const heroCss = readFileSync(join(repoRoot, 'components/HeroSection/HeroSection.module.css'), 'utf8');
 
 /**
  * Story 47 (R30.1): the copy has to clear 4.5:1 at the lightest and the darkest
  * point of what is behind it. Behind the hero copy there are three things —
  * the peach page, the glass of the card, and the mesh blobs of §14 — so the
  * check composites them the way the browser does instead of trusting the flat
- * palette numbers.
+ * palette numbers. Every colour comes from `styles/tokens.css`, the one place
+ * the palette is written.
  */
 describe('hero copy on the mesh gradient', () => {
   const cardAlpha = Number(tokens.match(/--surface-card:\s*rgb\(var\(--white-rgb\)\s*\/\s*([\d.]+)\)/)![1]);
+  const white = rgbTokenHex('white');
   const mesh = layersOf(globals, '.meshGradient::before');
 
-  const backdrops: Rgb[] = [];
-  for (const page of [PALETTE.peach!, PALETTE.rose!]) {
-    const glass = over(PALETTE.white!, page, cardAlpha);
+  const backdrops: string[] = [];
+  for (const page of [PALETTE.peach, PALETTE.rose]) {
+    const glass = composite(page, white, cardAlpha);
     backdrops.push(glass, page);
     for (const layer of mesh) {
-      backdrops.push(over(layer.color, glass, layer.alpha), over(layer.color, page, layer.alpha));
+      backdrops.push(composite(glass, layer.color, layer.alpha), composite(page, layer.color, layer.alpha));
     }
   }
 
-  const sorted = [...backdrops].sort((a, b) => luminance(a) - luminance(b));
+  const sorted = [...backdrops].sort((a, b) => relativeLuminance(a) - relativeLuminance(b));
   const darkest = sorted[0]!;
   const lightest = sorted[sorted.length - 1]!;
 
@@ -114,12 +79,12 @@ describe('hero copy on the mesh gradient', () => {
     ['lightest', lightest],
   ] as const) {
     it(`headline clears 4.5:1 at the ${name} point`, () => {
-      expect(contrast(PALETTE.ink!, backdrop)).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(PALETTE.ink, backdrop)).toBeGreaterThanOrEqual(4.5);
     });
 
     it(`subtitle clears 4.5:1 at the ${name} point`, () => {
-      const rendered = over(PALETTE.ink!, backdrop, subtitleAlpha);
-      expect(contrast(rendered, backdrop)).toBeGreaterThanOrEqual(4.5);
+      const rendered = composite(backdrop, PALETTE.ink, subtitleAlpha);
+      expect(contrastRatio(rendered, backdrop)).toBeGreaterThanOrEqual(4.5);
     });
   }
 });

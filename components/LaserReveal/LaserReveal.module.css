@@ -72,6 +72,11 @@
   background-position: center;
   box-shadow: var(--shadow-card);
   isolation: isolate;
+  /* The heaviest layer of the page — two photographs, ~120 hair strokes and a
+     turbulence filter — and it starts far below the fold. The box is sized by
+     `aspect-ratio` over a definite width, so skipping its contents while it is
+     off screen costs the layout nothing and the scene lengths stay put (§11). */
+  content-visibility: auto;
 }
 
 .canvas {

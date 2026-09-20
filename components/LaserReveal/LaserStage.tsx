@@ -39,6 +39,7 @@ function Negotiator({ image, photos, sizes }: { image: SceneImage; photos: Scene
         alt=""
         aria-hidden="true"
         decoding="async"
+        fetchPriority="low"
         onLoad={(event) => photos.reportLoaded(image, event.currentTarget.currentSrc || image.src)}
         onError={photos.reportFailed}
       />

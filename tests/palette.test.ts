@@ -1,14 +1,19 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { contrastRatio } from '@/lib/color/wcag';
+import { BACKDROP_NAMES, PALETTE, repoRoot } from './support/palette';
 
-const root = new URL('..', import.meta.url).pathname;
-/** The tokens live in one place: styles/tokens.css, imported by globals.css. */
-const css = readFileSync(join(root, 'styles/tokens.css'), 'utf8');
-const globals = readFileSync(join(root, 'app/globals.css'), 'utf8');
+const globals = readFileSync(join(repoRoot, 'app/globals.css'), 'utf8');
 
-/** Palette of the specification, §14 — the source of truth for these values. */
-const PALETTE = {
+/**
+ * Palette of the specification, §14 — quoted by hand on purpose. This is the
+ * one file allowed to hold a second copy of these values, because this is the
+ * check that `styles/tokens.css` says what the specification says; everything
+ * else in the suite reads the palette out of the stylesheet
+ * (`tests/support/palette.ts`).
+ */
+const SPEC_14 = {
   peach: '#F7E7DF',
   rose: '#F2D3D8',
   lilac: '#E4D0F3',
@@ -16,34 +21,16 @@ const PALETTE = {
   ink: '#2C2326',
 } as const;
 
-function token(name: string): string {
-  const match = css.match(new RegExp(`--${name}\\s*:\\s*(#[0-9a-fA-F]{6})`));
-  if (!match?.[1]) throw new Error(`token --${name} is not defined in styles/tokens.css`);
-  return match[1].toUpperCase();
-}
-
-/** WCAG 2.1 relative luminance. */
-function luminance(hex: string): number {
-  const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
-  const [r, g, b] = channels.map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-  return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
-}
-
-function contrast(a: string, b: string): number {
-  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (light! + 0.05) / (dark! + 0.05);
-}
-
 describe('palette tokens', () => {
-  for (const [name, hex] of Object.entries(PALETTE)) {
+  for (const [name, hex] of Object.entries(SPEC_14)) {
     it(`--${name} is ${hex}`, () => {
-      expect(token(name)).toBe(hex);
+      expect(PALETTE[name as keyof typeof SPEC_14]).toBe(hex);
     });
   }
 
-  for (const background of ['peach', 'rose', 'lilac', 'sand'] as const) {
+  for (const background of BACKDROP_NAMES) {
     it(`ink text on --${background} reaches 4.5:1`, () => {
-      expect(contrast(PALETTE.ink, PALETTE[background])).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(SPEC_14.ink, SPEC_14[background])).toBeGreaterThanOrEqual(4.5);
     });
   }
 });
@@ -58,7 +45,7 @@ describe('components use tokens, not hex literals', () => {
   }
 
   it('has no hex colour anywhere under components/ or app/', () => {
-    const offenders = [join(root, 'components'), join(root, 'app')]
+    const offenders = [join(repoRoot, 'components'), join(repoRoot, 'app')]
       .flatMap(tsxFiles)
       .filter((path) => /#[0-9a-fA-F]{3,8}\b/.test(readFileSync(path, 'utf8')));
     expect(offenders).toEqual([]);
@@ -67,5 +54,24 @@ describe('components use tokens, not hex literals', () => {
   it('keeps one source of truth: globals.css imports the tokens and redefines none', () => {
     expect(globals).toContain("@import '../styles/tokens.css';");
     expect(globals).not.toMatch(/--(peach|rose|lilac|sand|ink)\s*:/);
+  });
+
+  it('keeps one implementation of the WCAG maths, and it is lib/color/wcag', () => {
+    function sources(dir: string): string[] {
+      return readdirSync(dir).flatMap((entry) => {
+        const path = join(dir, entry);
+        if (statSync(path).isDirectory()) return sources(path);
+        return /\.(ts|tsx)$/.test(path) ? [path] : [];
+      });
+    }
+
+    /* 0.03928 and 0.7152 are the constants of the relative-luminance formula:
+       wherever they appear, someone has written the formula again. */
+    const offenders = [join(repoRoot, 'components'), join(repoRoot, 'app'), join(repoRoot, 'lib'), join(repoRoot, 'tests'), join(repoRoot, 'e2e')]
+      .flatMap(sources)
+      .filter((path) => !path.endsWith('tests/palette.test.ts')) // the guard names the constants
+      .filter((path) => /0\.03928|0\.7152/.test(readFileSync(path, 'utf8')))
+      .map((path) => path.slice(repoRoot.length));
+    expect(offenders).toEqual(['lib/color/wcag.ts']);
   });
 });

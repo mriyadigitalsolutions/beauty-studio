@@ -19,6 +19,21 @@ test.describe('scroll runtime', () => {
   test('leaves keyboard focus and #-links alone (R11.1)', async ({ page }) => {
     await page.goto('/de/');
 
+    /* The pin spacers of thirteen scenes decide how far down the footer sits,
+       so wait for the document to stop growing: focusing before that scrolls
+       to where the link used to be and nothing moves it again. */
+    await expect
+      .poll(
+        async () => {
+          const before = await page.evaluate(() => document.documentElement.scrollHeight);
+          await page.waitForTimeout(250);
+          const after = await page.evaluate(() => document.documentElement.scrollHeight);
+          return before === after && after > 0;
+        },
+        { timeout: 10_000 },
+      )
+      .toBe(true);
+
     /* Tab-ing into something below the fold scrolls natively; Lenis must let
        that through instead of pulling the page back to where it was. */
     await page.evaluate(() => {
@@ -30,11 +45,18 @@ test.describe('scroll runtime', () => {
       .poll(async () => page.evaluate(() => window.scrollY), { timeout: 4000 })
       .toBeGreaterThan(0);
 
-    const focusedInView = await page.evaluate(() => {
-      const box = document.activeElement?.getBoundingClientRect();
-      return box ? box.top >= 0 && box.bottom <= window.innerHeight + 1 : false;
-    });
-    expect(focusedInView).toBe(true);
+    /* The scroll that brings it into view is smoothed by Lenis, so give it
+       time to arrive — what must not happen is being pulled back instead. */
+    await expect
+      .poll(
+        async () =>
+          page.evaluate(() => {
+            const box = document.activeElement?.getBoundingClientRect();
+            return box ? box.top >= 0 && box.bottom <= window.innerHeight + 1 : false;
+          }),
+        { timeout: 6000 },
+      )
+      .toBe(true);
   });
 
   test('carries the site-wide decor over every section', async ({ page }) => {
@@ -67,7 +89,7 @@ test.describe('scroll runtime', () => {
  * take the same scene id — step 9 of §4 carries two sections — so this also
  * catches the second registration evicting the first.
  */
-test.describe('a scene registered through useScene', () => {
+test.describe('a scene registered through useScene', { tag: '@dev-fixture' }, () => {
   const FIXTURE = '/de/?motion-fixture=1';
 
   async function wheelUntil(
